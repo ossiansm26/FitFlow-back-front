@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="comment")
-public class Comment {
+@Table(name="comments")
+public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
