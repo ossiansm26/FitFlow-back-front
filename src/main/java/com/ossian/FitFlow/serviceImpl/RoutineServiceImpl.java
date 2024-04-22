@@ -21,19 +21,19 @@ public class RoutineServiceImpl implements RoutineService {
     @Autowired
     CollectionExercicesRepository collectionExercicesRepository;
 
-    @Transactional
+
     public Routine saveRoutine(Routine routine){return routineRepository.save(routine);};
     public List<Routine> getAllRoutine(){return routineRepository.findAll();};
-    @Transactional
+
     public void deleteRoutine(Long id) {
         routineRepository.deleteById(id);
     }
-    @Transactional
+
     public Routine updateRoutine(Routine routine) {
         return routineRepository.save(routine);
     }
 
-    @Transactional
+
     public Routine addCollectionExercicesToRoutine(Long id, Long idCollectionExercices) {
         Routine routine = routineRepository.findById(id).orElseThrow(() -> new RuntimeException("Routine not found"));
 
@@ -46,7 +46,7 @@ public class RoutineServiceImpl implements RoutineService {
         collectionExercicesRepository.save(collectionExercices);
         return routineRepository.save(routine);
     }
-    @Transactional
+
     public Routine removeCollectionExercicesToRoutine(Long id, Long idCollectionExercices) {
         Routine routine = routineRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Routine not found"));

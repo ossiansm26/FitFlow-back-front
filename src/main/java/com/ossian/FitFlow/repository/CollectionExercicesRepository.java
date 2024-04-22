@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CollectionExercicesRepository extends JpaRepository<CollectionExercices, Long> {
-    List<CollectionExercices> findByNameCollection(String fieldName);
+    List<CollectionExercices> findByCollectionName(String fieldName);
 
 
 }

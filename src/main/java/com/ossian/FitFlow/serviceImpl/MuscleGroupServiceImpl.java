@@ -15,14 +15,14 @@ public class MuscleGroupServiceImpl implements MuscleGroupService {
     @Autowired
     MuscleGroupRepository muscleGroupRepository;
 
-    @Transactional
+
     public MuscleGroup saveMuscleGroup(MuscleGroup muscleGroup){return muscleGroupRepository.save(muscleGroup);};
     public List<MuscleGroup> getAllMuscleGroup(){return muscleGroupRepository.findAll();};
-    @Transactional
+
     public void deleteMuscleGroup(Long id) {
         muscleGroupRepository.deleteById(id);
     }
-    @Transactional
+
     public MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup) {
         return muscleGroupRepository.save(muscleGroup);
     }

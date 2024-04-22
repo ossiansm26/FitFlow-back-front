@@ -14,13 +14,12 @@ public class Exercices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nameExercise", nullable = false)
-    private String nameExercise;
+    @Column(name = "exerciseName", nullable = false)
+    private String exerciseName;
     @Column(name = "duration", nullable = false)
     private int duration;
     @Column(name = "description")
     private String description;
-
 
     @JsonIgnore
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -31,10 +30,8 @@ public class Exercices {
     )
     private List<CollectionExercices> collectionExercices = new ArrayList<>();
 
-
     @ManyToMany(mappedBy = "exercices")
     List<Material> material= new ArrayList<>();
-
 
     @ManyToMany(mappedBy = "exercices")
     List<MuscleGroup> MuscleGroup= new ArrayList<>();

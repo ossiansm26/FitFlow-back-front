@@ -36,7 +36,6 @@ public class Routine {
     @ManyToMany(mappedBy = "routinesAssociated")
     private List<User> userAdded = new ArrayList<>();
 
-
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "rutinas_colleciones",

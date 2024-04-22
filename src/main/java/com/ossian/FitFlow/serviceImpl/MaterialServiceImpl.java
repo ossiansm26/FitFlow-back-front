@@ -16,17 +16,17 @@ public class MaterialServiceImpl implements MaterialService {
     @Autowired
     MaterialRepository materialRepository;
 
-    @Transactional
+
     public Material saveMaterial(Material material) {
         return materialRepository.save(material);
     }
 
     public List<Material> getAllMaterial(){return materialRepository.findAll();};
-    @Transactional
+
     public void deleteMaterial(Long id) {
         materialRepository.deleteById(id);
     }
-    @Transactional
+
     public Material updateMaterial(Material material) {
         return materialRepository.save(material);
     }

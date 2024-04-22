@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
-    @Transactional
+
     public User removeRoutineToUser(Long id, Long idRoutine) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         Routine routine = routineRepository.findById(idRoutine).orElseThrow(() -> new RuntimeException("routine not found"));
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Transactional
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }
@@ -48,18 +48,18 @@ public class UserServiceImpl implements UserService {
         */
     }
 
-    @Transactional
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    @Transactional
+
     public User updateUser(User user) {
         return userRepository.save(user);
     }
-    @Transactional
+
     public User addRoutineToUser(Long id, Long idRoutine) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        Routine routine = routineRepository.findById(idRoutine).orElseThrow(() -> new RuntimeException("User not found"));
+        Routine routine = routineRepository.findById(idRoutine).orElseThrow(() -> new RuntimeException("Routine not found"));
 
         user.getRoutinesAssociated().add(routine);
         routine.getUserAdded().add(user);
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Transactional
+
     public User createRoutine(Long id, Routine routine) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> findUserByAgeIsGreaterThan(Integer age) {
         return userRepository.findAll().stream()
-                .filter(user1 -> user1.getAge() > age)
+                .filter(user -> user.getAge() > age)
                 .collect(Collectors.toList());
     }
     public User findUserByEmail(String email) {

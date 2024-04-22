@@ -21,24 +21,24 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
     @Autowired
     ExercicesRepository exercicesRepository;
 
-    @Transactional
+
     public CollectionExercices saveCollectionExercices(CollectionExercices collectionExercices) {
         return collectionCollectionExercicesRepository.save(collectionExercices);
     }
     public List<CollectionExercices> getAllCollectionExercices(){return collectionCollectionExercicesRepository.findAll();};
 
-    @Transactional
+
     public void deleteCollectionExercices(Long id) {
         collectionCollectionExercicesRepository.deleteById(id);
     }
-    @Transactional
+
     public CollectionExercices updateCollectionExercices(CollectionExercices collectionExercices) {
         return collectionCollectionExercicesRepository.save(collectionExercices);
     }
     public CollectionExercices findByName(String name) {
-        return collectionCollectionExercicesRepository.findByNameCollection(name).get(0);
+        return collectionCollectionExercicesRepository.findByCollectionName(name).get(0);
     }
-    @Transactional
+
     public CollectionExercices addExercicesToCollectionExercices(Long id, Long idExercices) {
         CollectionExercices collectionExercices = collectionCollectionExercicesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));
@@ -54,7 +54,7 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
         return collectionCollectionExercicesRepository.save(collectionExercices);
 
     }
-    @Transactional
+
     public CollectionExercices removeExercicesToCollectionExercices(Long id, Long idExercices) {
         CollectionExercices collectionExercices = collectionCollectionExercicesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));

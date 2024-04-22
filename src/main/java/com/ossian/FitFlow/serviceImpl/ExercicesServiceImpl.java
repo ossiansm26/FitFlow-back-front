@@ -22,21 +22,21 @@ public class ExercicesServiceImpl implements ExercicesService {
     @Autowired
     MuscleGroupRepository muscleGroupRepository;
     
-    @Transactional
+
     public Exercices saveExercices(Exercices exercices) {
         return exercicesRepository.save(exercices);
     }
 
     public List<Exercices> getAllExercices(){return exercicesRepository.findAll();};
-    @Transactional
+
     public void deleteExercices(Long id) {
         exercicesRepository.deleteById(id);
     }
-    @Transactional
+
     public Exercices updateExercices(Exercices exercices) {
         return exercicesRepository.save(exercices);
     }
-    @Transactional
+
     public Exercices addMaterialToExercices(Long id, Long idMaterial) {
         Exercices exercices = exercicesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Exercices not found"));
@@ -50,7 +50,7 @@ public class ExercicesServiceImpl implements ExercicesService {
         materialRepository.save(material);
         return exercicesRepository.save(exercices);
     }
-    @Transactional
+
     public Exercices addMuscleGroupToExercices(Long id, Long idMuscleGroup) {
         Exercices exercices = exercicesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Exercices not found"));

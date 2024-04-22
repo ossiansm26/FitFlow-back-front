@@ -61,7 +61,6 @@ public class UserController {
         Routine routine = new Routine();
         routine.setDescription(description);
         routine.setCategory(category);
-
         User user = userService.createRoutine(id,routine);
         return ResponseEntity.ok(user);
     }

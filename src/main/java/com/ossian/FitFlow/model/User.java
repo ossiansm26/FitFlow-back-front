@@ -39,7 +39,6 @@ public class User {
     @Column(name = "speciality")
     private String speciality;
 
-
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "userCreated_routinesCreated",
@@ -47,7 +46,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<Routine> routinesCreated = new ArrayList<>();
-
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
@@ -57,5 +55,20 @@ public class User {
     )
     private List<Routine> routinesAssociated = new ArrayList<>();
 
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "userCreated_communityCreated",
+            joinColumns = @JoinColumn(name = "community_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<Community> communityCreated = new ArrayList<>();
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "userAdded_communityAssociated",
+            joinColumns = @JoinColumn(name = "community_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<Community> communityAssociated = new ArrayList<>();
 
 }

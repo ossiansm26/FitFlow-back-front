@@ -14,8 +14,8 @@ public class CollectionExercices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nameCollection", nullable = false)
-    private String nameCollection;
+    @Column(name = "collectionName", nullable = false)
+    private String collectionName;
     @Column(name = "difficultyLevel", nullable = false)
     private int difficultyLevel;
     @Column(name = "totalExercices", nullable = false)
