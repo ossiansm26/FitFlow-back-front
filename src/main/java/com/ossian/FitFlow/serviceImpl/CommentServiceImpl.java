@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.serviceImpl;
 
-import com.ossian.FitFlow.model.Comment;
+
+import com.ossian.FitFlow.model.Comments;
 import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.model.User;
 import com.ossian.FitFlow.repository.CommentRepository;
@@ -22,8 +23,8 @@ public class CommentServiceImpl implements CommentService {
     private PostRepository post;
 
 
-    public Comment addCommentToPost(Long idComment, Long idPost , Long idUser) {
-        Comment comment = this.comment.findById(idComment)
+    public Comments addCommentToPost(Long idComment, Long idPost , Long idUser) {
+        Comments comment = this.comment.findById(idComment)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
 
         Post post = this.post.findById(idPost)
@@ -42,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    public List<Comment> getAllComment() {
+    public List<Comments> getAllComment() {
     return comment.findAll();
     }
 }

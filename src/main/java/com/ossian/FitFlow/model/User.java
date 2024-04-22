@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.xml.stream.events.Comment;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,10 +72,19 @@ public class User {
     )
     private List<Community> communityAssociated = new ArrayList<>();
 
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "user_achivement",
+            joinColumns = @JoinColumn(name = "achivement_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<Achivement> achivement = new ArrayList<>();
+
     @OneToMany(mappedBy="user" )
     private List<Post> post = new ArrayList<>();
 
     @OneToMany(mappedBy="user" )
-    private List<Comment> comment = new ArrayList<>();
+    private List<Comments> comment = new ArrayList<>();
+
 
 }

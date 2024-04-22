@@ -1,11 +1,11 @@
 package com.ossian.FitFlow.service;
 
-import com.ossian.FitFlow.model.Comment;
+import com.ossian.FitFlow.model.Comments;
 
 import java.util.List;
 
 public interface CommentService {
-    Comment addCommentToPost(Long idComment, Long idPost , Long idUser);
-    List<Comment> getAllComment();
+    Comments addCommentToPost(Long idComment, Long idPost , Long idUser);
+    List<Comments> getAllComment();
 
 }
