@@ -13,3 +13,5 @@ Project is created with:
 * Springdoc OpenAPI: 2.2.0
 * Spring Boot Starter Validation: 3.2.1
 * JUnit: 5
+____________________________________________________________________________________
+![FitFLowLogo](./images/FitFlowLogo.png)
