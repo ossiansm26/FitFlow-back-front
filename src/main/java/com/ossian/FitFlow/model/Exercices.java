@@ -16,7 +16,7 @@ public class Exercices {
     private Long id;
     @Column(name = "exerciseName", nullable = false)
     private String exerciseName;
-    @Column(name = "duration", nullable = false)
+    @Column(name = "duration")
     private int duration;
     @Column(name = "description")
     private String description;

@@ -16,9 +16,9 @@ public class CollectionExercices {
     private Long id;
     @Column(name = "collectionName", nullable = false)
     private String collectionName;
-    @Column(name = "difficultyLevel", nullable = false)
+    @Column(name = "difficultyLevel")
     private int difficultyLevel;
-    @Column(name = "totalExercices", nullable = false)
+    @Column(name = "totalExercices")
     private int totalExercices;
     @Column(name = "urlExplanatoryVideo")
     private String urlExplanatoryVideo;

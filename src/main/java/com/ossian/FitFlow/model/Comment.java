@@ -4,39 +4,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name="post")
-public class Post {
+@Table(name="comment")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "title", nullable = false)
-    private String title;
     @Column(name = "content", nullable = false)
     private String content;
     @Column(name = "creationDate")
     private Date creationDate;
-    @Column(name = "category")
-    private String category;
     @Column(name = "likes")
     private Long likes;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="community_id")
-    private Community community;
+    @JoinColumn(name="user_comment")
+    private User user;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="User_Post")
-    private User user;
-
-    @OneToMany(mappedBy="post")
-    private List<Comment> comment = new ArrayList<>();
+    @JoinColumn(name="post_comment")
+    private Post post;
 
 }

@@ -17,9 +17,9 @@ public class Routine {
     private Long id;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "category", nullable = false)
+    @Column(name = "category")
     private String category;
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private boolean status;
     @Column(name = "startDate")
     private Date start;
