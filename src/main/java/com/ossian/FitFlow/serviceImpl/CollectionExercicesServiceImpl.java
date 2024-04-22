@@ -38,7 +38,6 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
     public CollectionExercices findByName(String name) {
         return collectionCollectionExercicesRepository.findByCollectionName(name).get(0);
     }
-
     public CollectionExercices addExercicesToCollectionExercices(Long id, Long idExercices) {
         CollectionExercices collectionExercices = collectionCollectionExercicesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));
