@@ -1,7 +1,7 @@
 # FitFlow
 Application to create routines and share them (FP final project)
-
-## Technologies
+____________________________________________________________________________________
+## BackEnd Technologies
 Project is created with:
 
 * Spring Boot: 3.2.4
