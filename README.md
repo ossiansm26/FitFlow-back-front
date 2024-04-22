@@ -14,4 +14,5 @@ Project is created with:
 * Spring Boot Starter Validation: 3.2.1
 * JUnit: 5
 ____________________________________________________________________________________
+##Logotype concept
 ![FitFLowLogo](./images/FitFlowLogo.png)
