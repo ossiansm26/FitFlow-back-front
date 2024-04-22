@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -66,7 +67,7 @@ public class UserController {
     }
 
     @GetMapping("/findUserByAgeIsGreaterThan/{age}")
-    public ResponseEntity<List<User>> findUserByAgeIsGreaterThan(@PathVariable Integer age) {
+    public ResponseEntity<List<User>> findUserByAgeIsGreaterThan(@PathVariable Date age) {
         List<User> user = userService.findUserByAgeIsGreaterThan(age);
         return ResponseEntity.ok(user);
     }

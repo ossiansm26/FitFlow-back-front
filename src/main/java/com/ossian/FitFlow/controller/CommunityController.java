@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/community")
@@ -31,6 +33,10 @@ public class CommunityController {
                                                         @PathVariable Long idUser) {
         Community community = communityService.addUserToCommunity(id, idUser);
         return ResponseEntity.ok(community);
+    }
+    @GetMapping
+    public ResponseEntity<List<Community>> getAllCommunity() {
+        return ResponseEntity.ok(communityService.getAllCommunity());
     }
 
 

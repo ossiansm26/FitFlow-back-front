@@ -8,6 +8,8 @@ import com.ossian.FitFlow.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommunityServiceImpl implements CommunityService{
     @Autowired
@@ -46,7 +48,9 @@ public Community createCommunity(Long idUser,Community community) {
         userRepository.save(user);
         return communityRepository.save(community);
     }
-
+    public List<Community> getAllCommunity(){
+        return communityRepository.findAll();
+    }
 
 
 

@@ -29,6 +29,9 @@ public class Community {
     @ManyToMany(mappedBy = "communityAssociated")
     private List<User> userAdded = new ArrayList<>();
 
+    @OneToMany(mappedBy="community" )
+    private List<Post> post = new ArrayList<>();
+
 
 
 

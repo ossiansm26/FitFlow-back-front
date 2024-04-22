@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,9 +80,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findUserByAgeIsGreaterThan(Integer age) {
+    public List<User> findUserByAgeIsGreaterThan(Date age) {
         return userRepository.findAll().stream()
-                .filter(user -> user.getAge() > age)
+                .filter(user -> user.getAge().after(age))
                 .collect(Collectors.toList());
     }
     public User findUserByEmail(String email) {

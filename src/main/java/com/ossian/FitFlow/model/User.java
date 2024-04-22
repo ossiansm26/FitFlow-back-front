@@ -23,7 +23,7 @@ public class User {
     @Column(name = "lastNames", nullable = false)
     private String lastNames;
     @Column(name = "age", nullable = false)
-    private int age;
+    private Date age;
     @Column(name = "email", nullable = false)
     private String email;
     @Column(name = "password", nullable = false)
@@ -70,5 +70,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<Community> communityAssociated = new ArrayList<>();
+
+    @OneToMany(mappedBy="user" )
+    private List<Post> post = new ArrayList<>();
 
 }

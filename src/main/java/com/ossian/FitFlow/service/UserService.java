@@ -4,6 +4,7 @@ import com.ossian.FitFlow.model.Routine;
 import com.ossian.FitFlow.model.User;
 
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public interface UserService {
      User updateUser(User user);
      User addRoutineToUser(Long id, Long idRoutine);
      User createRoutine(Long id, Routine routine);
-     List<User> findUserByAgeIsGreaterThan(Integer age);
+     List<User> findUserByAgeIsGreaterThan(Date age);
      User findUserByEmail(String email);
 
 }
