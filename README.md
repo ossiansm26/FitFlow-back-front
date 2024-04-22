@@ -15,4 +15,4 @@ Project is created with:
 * JUnit: 5
 ____________________________________________________________________________________
 ## Logotype Concept
-![FitFLowLogo](./images/FitFlowLogo.png)
+![FitFLowLogo](./images/FitFlowLogo.jpg)
