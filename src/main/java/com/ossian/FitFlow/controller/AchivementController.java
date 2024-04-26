@@ -19,6 +19,4 @@ public class AchivementController {
         List<Achivement> achivement = achivementService.getAllAchivement();
         return ResponseEntity.ok(achivement);
     }
-
-
 }
