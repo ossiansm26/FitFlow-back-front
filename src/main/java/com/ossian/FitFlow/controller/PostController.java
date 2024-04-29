@@ -4,13 +4,11 @@ import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.serviceImpl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/post")
+@CrossOrigin(origins = "http://localhost:8080")
 public class PostController {
     @Autowired
     private PostServiceImpl postService;

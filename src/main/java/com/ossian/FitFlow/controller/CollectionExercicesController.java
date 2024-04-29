@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/collectionExercices")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CollectionExercicesController {
     @Autowired
     private CollectionExercicesServiceImpl collectionExercicesService;

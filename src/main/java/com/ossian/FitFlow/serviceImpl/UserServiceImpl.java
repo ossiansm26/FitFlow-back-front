@@ -2,6 +2,7 @@ package com.ossian.FitFlow.serviceImpl;
 
 import com.ossian.FitFlow.model.Routine;
 import com.ossian.FitFlow.model.User;
+import com.ossian.FitFlow.repository.PostRepository;
 import com.ossian.FitFlow.repository.RoutineRepository;
 import com.ossian.FitFlow.repository.UserRepository;
 import com.ossian.FitFlow.service.UserService;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RoutineRepository routineRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -51,6 +54,11 @@ public class UserServiceImpl implements UserService {
 
 
     public void deleteUser(Long id) {
+      User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.getPost().forEach(post -> post.setUser(null));
+        user.getRoutinesAssociated().forEach(routine -> routine.getUserAdded().remove(user));
+        user.getRoutinesCreated().forEach(routine -> routine.getUserCreated().remove(user));
+
         userRepository.deleteById(id);
     }
 

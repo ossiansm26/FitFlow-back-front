@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/routine")
+@CrossOrigin(origins = "http://localhost:8080")
 public class RoutineController {
     @Autowired
     private RoutineServiceImpl routineService;

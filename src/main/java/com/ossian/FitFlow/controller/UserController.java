@@ -12,12 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
-    @PostMapping
+    @PostMapping("/createUser")
     public ResponseEntity<User> createUsuario(@RequestBody User user) {
         User newUser = userService.saveUser(user);
         return ResponseEntity.ok(newUser);
@@ -29,10 +30,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")

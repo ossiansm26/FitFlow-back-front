@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/material")
+@CrossOrigin(origins = "http://localhost:8080")
 public class MaterialController {
     @Autowired
     private MaterialServiceImpl materialService;
