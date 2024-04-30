@@ -29,8 +29,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User removeRoutineToUser(Long id, Long idRoutine) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        Routine routine = routineRepository.findById(idRoutine).orElseThrow(() -> new RuntimeException("routine not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Routine routine = routineRepository.findById(idRoutine)
+                .orElseThrow(() -> new RuntimeException("routine not found"));
 
         user.getRoutinesAssociated().remove(routine);
         routine.getUserAdded().remove(user);
@@ -54,7 +56,8 @@ public class UserServiceImpl implements UserService {
 
 
     public void deleteUser(Long id) {
-      User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+      User user = userRepository.findById(id)
+              .orElseThrow(() -> new RuntimeException("User not found"));
         user.getPost().forEach(post -> post.setUser(null));
         user.getRoutinesAssociated().forEach(routine -> routine.getUserAdded().remove(user));
         user.getRoutinesCreated().forEach(routine -> routine.getUserCreated().remove(user));
@@ -67,8 +70,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User addRoutineToUser(Long id, Long idRoutine) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        Routine routine = routineRepository.findById(idRoutine).orElseThrow(() -> new RuntimeException("Routine not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Routine routine = routineRepository.findById(idRoutine)
+                .orElseThrow(() -> new RuntimeException("Routine not found"));
 
         user.getRoutinesAssociated().add(routine);
         routine.getUserAdded().add(user);
