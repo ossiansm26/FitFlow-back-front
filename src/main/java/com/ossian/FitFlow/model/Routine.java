@@ -29,14 +29,14 @@ public class Routine {
     private String coachsComments;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "routinesCreated")
+    @ManyToMany(mappedBy = "routinesCreated",cascade = CascadeType.ALL)
     private List<User> userCreated = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "routinesAssociated")
+    @ManyToMany(mappedBy = "routinesAssociated",cascade = CascadeType.ALL)
     private List<User> userAdded = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "rutinas_colleciones",
             joinColumns = @JoinColumn(name = "collectionsExercices_id"),

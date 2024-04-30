@@ -40,7 +40,7 @@ public class User {
     @Column(name = "speciality")
     private String speciality;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "userCreated_routinesCreated",
             joinColumns = @JoinColumn(name = "routine_id"),
@@ -48,7 +48,7 @@ public class User {
     )
     private List<Routine> routinesCreated = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "userAdded_routinesAssociated",
             joinColumns = @JoinColumn(name = "routine_id"),
@@ -56,7 +56,7 @@ public class User {
     )
     private List<Routine> routinesAssociated = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "userCreated_communityCreated",
             joinColumns = @JoinColumn(name = "community_id"),
@@ -64,7 +64,7 @@ public class User {
     )
     private List<Community> communityCreated = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "userAdded_communityAssociated",
             joinColumns = @JoinColumn(name = "community_id"),
@@ -72,7 +72,7 @@ public class User {
     )
     private List<Community> communityAssociated = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_achivement",
             joinColumns = @JoinColumn(name = "achivement_id"),
@@ -80,10 +80,10 @@ public class User {
     )
     private List<Achivement> achivement = new ArrayList<>();
 
-    @OneToMany(mappedBy="user" )
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<Post> post = new ArrayList<>();
 
-    @OneToMany(mappedBy="user" )
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<Comments> comment = new ArrayList<>();
 
 

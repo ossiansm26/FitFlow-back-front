@@ -22,7 +22,7 @@ public class Exercices {
     private String description;
 
     @JsonIgnore
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "exercices_exerciceCollection",
             joinColumns = @JoinColumn(name = "collectionExercice_id"),
@@ -30,10 +30,10 @@ public class Exercices {
     )
     private List<CollectionExercices> collectionExercices = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "exercices")
+    @ManyToMany(mappedBy = "exercices", cascade = CascadeType.ALL)
     List<Material> material= new ArrayList<>();
 
-    @ManyToMany(mappedBy = "exercices")
+    @ManyToMany(mappedBy = "exercices", cascade = CascadeType.ALL)
     List<MuscleGroup> MuscleGroup= new ArrayList<>();
 
 }

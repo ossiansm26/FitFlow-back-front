@@ -23,7 +23,7 @@ public class Material {
     private Date lastMaintence;
 
     @JsonIgnore
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "material_exercices",
             joinColumns = @JoinColumn(name = "exercice_id"),

@@ -24,7 +24,7 @@ public class Achivement {
     private String achivementURL;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "achivement")
+    @ManyToMany(mappedBy = "achivement", cascade = CascadeType.ALL)
     private List<User> user = new ArrayList<>();
 
 

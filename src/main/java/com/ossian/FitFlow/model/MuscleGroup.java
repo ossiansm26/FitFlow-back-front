@@ -22,7 +22,7 @@ public class MuscleGroup {
     private String bodyPart;
 
     @JsonIgnore
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "muscleGroup_exercices",
             joinColumns = @JoinColumn(name = "exercice_id"),

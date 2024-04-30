@@ -22,14 +22,14 @@ public class Community {
     private String URLPicture;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "communityCreated")
+    @ManyToMany(mappedBy = "communityCreated", cascade = CascadeType.ALL)
     private List<User> userCreated = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "communityAssociated")
+    @ManyToMany(mappedBy = "communityAssociated",cascade = CascadeType.ALL)
     private List<User> userAdded = new ArrayList<>();
 
-    @OneToMany(mappedBy="community" )
+    @OneToMany(mappedBy="community",cascade = CascadeType.ALL )
     private List<Post> post = new ArrayList<>();
 
 

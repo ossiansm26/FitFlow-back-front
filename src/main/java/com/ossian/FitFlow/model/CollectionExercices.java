@@ -24,10 +24,10 @@ public class CollectionExercices {
     private String urlExplanatoryVideo;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "exercicesCollection")
+    @ManyToMany(mappedBy = "exercicesCollection", cascade = CascadeType.ALL)
     List<Routine> routine= new ArrayList<>();
 
-    @ManyToMany(mappedBy = "collectionExercices")
+    @ManyToMany(mappedBy = "collectionExercices", cascade = CascadeType.ALL)
     List<Exercices> exercices= new ArrayList<>();
 
 }
