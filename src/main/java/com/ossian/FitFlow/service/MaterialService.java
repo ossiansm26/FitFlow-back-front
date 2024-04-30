@@ -22,5 +22,6 @@ public interface MaterialService {
     Material updateMaterial(Material material);
 
     List<Material> findByLastMantenainceDate() ;
+    Material findById(Long id);
 }
 

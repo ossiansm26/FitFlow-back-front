@@ -17,13 +17,13 @@ public class ExercicesController {
     private ExercicesServiceImpl exercicesService;
 
     @PostMapping
-    public ResponseEntity<Exercices> createRoutine(@RequestBody Exercices exercices) {
+    public ResponseEntity<Exercices> createExercices(@RequestBody Exercices exercices) {
         Exercices newExercices = exercicesService.saveExercices(exercices);
         return ResponseEntity.ok(newExercices);
     }
 
     @GetMapping
-    public ResponseEntity<List<Exercices>> getAllRoutine() {
+    public ResponseEntity<List<Exercices>> getAllExercices() {
         List<Exercices> Routine = exercicesService.getAllExercices();
         return ResponseEntity.ok(Routine);
     }

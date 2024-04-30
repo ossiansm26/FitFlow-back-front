@@ -38,5 +38,9 @@ public class MaterialServiceImpl implements MaterialService {
                 .toList();
     }
 
+    public Material findById(Long id) {
+        return materialRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Material not found"));
+    }
 }
 
