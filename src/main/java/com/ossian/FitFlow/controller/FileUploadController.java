@@ -18,11 +18,10 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/api/file")
 @CrossOrigin(origins = "http://localhost:8080")
 public class FileUploadController {
-    private String uploadDir;
-    @PostMapping("/upload/{directoryName}")
+    private final String uploadDir = "./uploads";
 
-    public ResponseEntity<?> uploadFile(@PathVariable("directoryName") String directoryName, @RequestParam("file") MultipartFile file) {
-        uploadDir="C:/Users/ossia/Desktop/";
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             // Verificar si el archivo está vacío
             if (file.isEmpty()) {
@@ -33,21 +32,20 @@ public class FileUploadController {
             String fileName = file.getOriginalFilename();
 
             // Crear el directorio si no existe
-            File directory = new File(uploadDir + "/" + directoryName);
+            File directory = new File(uploadDir);
             if (!directory.exists()) {
                 directory.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
             }
 
             // Guardar el archivo en el directorio del servidor
-            Path filePath = Paths.get(uploadDir + "/" + directoryName + "/" + fileName);
+            Path filePath = Paths.get(uploadDir + File.separator + fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             // Devolver la URL donde se guardó el archivo
-            String fileUrl = "http://localhost:3001/" + directoryName + "/" + fileName;
+            String fileUrl = "http://localhost:3001/uploads/" + fileName;
             return new ResponseEntity<>(fileUrl, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al cargar el archivo: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
