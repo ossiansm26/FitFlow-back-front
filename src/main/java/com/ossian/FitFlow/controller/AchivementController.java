@@ -20,4 +20,15 @@ public class AchivementController {
         List<Achivement> achivement = achivementService.getAllAchivement();
         return ResponseEntity.ok(achivement);
     }
+    @DeleteMapping("/Delete/{id}")
+    public ResponseEntity<Void> deleteAchivement(@PathVariable Long id) {
+        achivementService.deleteAchivement(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/Add")
+    public ResponseEntity<Achivement> addAchivement(@RequestBody Achivement achivement) {
+        Achivement newAchivement = achivementService.addAchivement(achivement);
+        return ResponseEntity.ok(newAchivement);
+    }
+
 }

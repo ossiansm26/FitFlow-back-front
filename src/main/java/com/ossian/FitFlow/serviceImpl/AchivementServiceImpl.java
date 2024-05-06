@@ -32,7 +32,12 @@ public class AchivementServiceImpl implements AchivementService {
     }
     public List<Achivement> getAllAchivement(){return achivementRepository.findAll();};
 
-
+    public void deleteAchivement(Long id) {
+        achivementRepository.deleteById(id);
+    }
+    public Achivement addAchivement(Achivement achivement) {
+        return achivementRepository.save(achivement);
+    }
 
 
 }
