@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/post")
 @CrossOrigin(origins = "http://localhost:8080")
@@ -18,6 +20,22 @@ public class PostController {
         Post newPost = postService.createPost(post,idUser,idCommunity);
         return ResponseEntity.ok(newPost);
     }
+    @GetMapping
+    public ResponseEntity<List<Post>> getAllPost() {
+        return ResponseEntity.ok(postService.getAllPost());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPost(@PathVariable Long id) {
+        Post post = postService.getPost(id);
+        return ResponseEntity.ok(post);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 }

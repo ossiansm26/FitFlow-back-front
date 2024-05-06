@@ -10,6 +10,8 @@ import com.ossian.FitFlow.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -33,5 +35,23 @@ public class PostServiceImpl implements PostService {
         communityRepository.save(community);
         return postRepository.save(post);
     }
+
+    public Post getPost(Long id) {
+        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+
+
+    public void deletePost(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        post.getUser().getPost().remove(post);
+        post.getCommunity().getPost().remove(post);
+        postRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Post> getAllPost() {
+        return postRepository.findAll();
+    }
+
 
 }
