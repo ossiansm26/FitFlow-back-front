@@ -19,7 +19,7 @@ public class RoutineController {
     @Autowired
     private RoutineServiceImpl routineService;
     
-    @PostMapping
+    @PostMapping("/createRoutine")
     public ResponseEntity<Routine> createRoutine(@RequestBody Routine Routine) {
         Routine newRoutine = routineService.saveRoutine(Routine);
         return ResponseEntity.ok(newRoutine);
@@ -28,6 +28,11 @@ public class RoutineController {
     @GetMapping
     public ResponseEntity<List<Routine>> getAllRoutine() {
         List<Routine> Routine = routineService.getAllRoutine();
+        return ResponseEntity.ok(Routine);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Routine> getRoutineById(@PathVariable Long id) {
+        Routine Routine = routineService.getRoutineById(id);
         return ResponseEntity.ok(Routine);
     }
     @DeleteMapping("/delete/{id}")

@@ -29,6 +29,7 @@ public interface RoutineService {
     public List<Routine> searchRoutineByStartDateIsBetween(Date date1, Date date2);
 
 
+    Routine getRoutineById(Long id);
 }
 
 

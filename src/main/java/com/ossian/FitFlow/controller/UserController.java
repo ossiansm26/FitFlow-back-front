@@ -26,6 +26,11 @@ public class UserController {
         User newUser = userService.saveUser(user);
         return ResponseEntity.ok(newUser);
     }
+    @GetMapping("/GetById/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok(user);
+    }
 
     @GetMapping("/getAllUser")
     public ResponseEntity<List<User>> getAllUser() {

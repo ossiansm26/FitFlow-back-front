@@ -67,6 +67,10 @@ public class RoutineServiceImpl implements RoutineService {
 
     }
 
+    public Routine getRoutineById(Long id) {
+        return routineRepository.findById(id).orElse(null);
+    }
+
 
 }
 
