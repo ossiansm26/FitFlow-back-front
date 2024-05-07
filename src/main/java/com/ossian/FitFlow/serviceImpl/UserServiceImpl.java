@@ -102,7 +102,23 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    public List<Routine> getUserRoutines(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getRoutinesAssociated();
+    }
 
+    @Override
+    public List<Routine> getUserCreatedRoutines(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getRoutinesCreated();
+    }
+
+    @Override
+    public User findUserByName(String name) {
+        return userRepository.findByName(name);
+    }
 
 
 }

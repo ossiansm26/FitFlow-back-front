@@ -30,7 +30,7 @@ public class RoutineController {
         List<Routine> Routine = routineService.getAllRoutine();
         return ResponseEntity.ok(Routine);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteRoutine(@PathVariable Long id) {
         routineService.deleteRoutine(id);
         return ResponseEntity.noContent().build();

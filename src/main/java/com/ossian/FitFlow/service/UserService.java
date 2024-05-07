@@ -20,5 +20,8 @@ public interface UserService {
      User createRoutine(Long id, Routine routine);
      List<User> findUserByAgeIsGreaterThan(Date age);
      User findUserByEmail(String email);
+    List<Routine> getUserRoutines(Long id);
+    List<Routine> getUserCreatedRoutines(Long id);
 
+     User findUserByName(String name);
 }
