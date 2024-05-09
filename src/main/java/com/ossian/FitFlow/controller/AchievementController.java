@@ -16,7 +16,7 @@ public class AchievementController {
     private AchievementServiceImpl achievementService;
 
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Achievement>> getAllAchievement() {
         List<Achievement> achievement = achievementService.getAllAchievement();
         return ResponseEntity.ok(achievement);

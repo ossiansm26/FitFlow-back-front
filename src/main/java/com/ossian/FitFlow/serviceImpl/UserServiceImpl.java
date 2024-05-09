@@ -109,33 +109,33 @@ public class UserServiceImpl implements UserService {
         return user.getRoutinesAssociated();
     }
 
-    @Override
+
     public List<Routine> getUserCreatedRoutines(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getRoutinesCreated();
     }
 
-    @Override
+
     public User findUserByName(String name) {
         return userRepository.findByName(name);
     }
 
-    @Override
+
     public List<Achievement> getAllAchievements(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getAchievement();
     }
 
-    @Override
+
     public List<Post> findPostById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getPost();
     }
 
-    @Override
+
     public User addAchievementToUser(Long id, Long idAchievement) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+
     public User removeAchievementToUser(Long id, Long idAchievement) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+
     public User deleteCreatedRoutine(Long id, Long idRoutine) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -175,14 +175,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+
     public List<Community> getCommunity(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getCommunityAssociated();
     }
 
-    @Override
+
     public User removeCommunityToUser(Long id, Long idCommunity) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -194,7 +194,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+
     public User addCommunityToUser(Long id, Long idCommunity) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -205,9 +205,6 @@ public class UserServiceImpl implements UserService {
         communityRepository.save(community);
         return userRepository.save(user);
     }
-
-
-
 
 
 }

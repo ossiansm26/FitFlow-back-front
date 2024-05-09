@@ -40,4 +40,5 @@ public interface UserService {
 
     User addCommunityToUser(Long id, Long idCommunity);
 
+
 }
