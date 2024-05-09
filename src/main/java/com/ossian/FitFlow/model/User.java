@@ -38,6 +38,8 @@ public class User {
     private String rol;
     @Column(name = "speciality")
     private String speciality;
+    @Column(name = "userImage")
+    private String userImage;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
