@@ -16,4 +16,6 @@ public interface MuscleGroupService {
     public void deleteMuscleGroup(Long id);
 
     public MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup);
+
+    MuscleGroup getMuscleGroupById(Long id);
 }

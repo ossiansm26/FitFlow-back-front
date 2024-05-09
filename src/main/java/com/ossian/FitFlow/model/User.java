@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.xml.stream.events.Comment;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,11 +73,11 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "user_achivement",
-            joinColumns = @JoinColumn(name = "achivement_id"),
+            name = "user_achievement",
+            joinColumns = @JoinColumn(name = "achievement_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<Achivement> achivement = new ArrayList<>();
+    private List<Achievement> achievement = new ArrayList<>();
 
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<Post> post = new ArrayList<>();

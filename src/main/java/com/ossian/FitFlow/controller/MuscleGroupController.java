@@ -14,36 +14,35 @@ import java.util.List;
 @RequestMapping("/api/muscleGroup")
 @CrossOrigin(origins = "http://localhost:8080")
 public class MuscleGroupController {
+
     @Autowired
     private MuscleGroupServiceImpl muscleGroupService;
 
-    @PostMapping
-    public ResponseEntity<MuscleGroup> createMuscleGroup(
-            @RequestParam("groupName") String groupName,
-            @RequestParam("bodyPart") String bodyPart,
-            @RequestPart("muscleImage") String muscleImage) {
-        MuscleGroup newMuscleGroup = new MuscleGroup();
-        newMuscleGroup.setGroupName(groupName);
-        newMuscleGroup.setBodyPart(bodyPart);
-        newMuscleGroup.setMuscleImage(muscleImage);
-        muscleGroupService.saveMuscleGroup(newMuscleGroup);
-        return ResponseEntity.ok(newMuscleGroup);
-    }
-
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<MuscleGroup>> getAllMuscleGroup() {
         List<MuscleGroup> muscleGroups = muscleGroupService.getAllMuscleGroup();
         return ResponseEntity.ok(muscleGroups);
     }
-
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<MuscleGroup> getMuscleGroupById(@PathVariable Long id) {
+        MuscleGroup muscleGroup = muscleGroupService.getMuscleGroupById(id);
+        return ResponseEntity.ok(muscleGroup);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMuscleGroup(@PathVariable Long id) {
         muscleGroupService.deleteMuscleGroup(id);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping("/{id}")
+
+    @PutMapping("/update")
     public ResponseEntity<MuscleGroup> updateMuscleGroup(@RequestBody MuscleGroup muscleGroup) {
         MuscleGroup muscleGroupUpdated = muscleGroupService.updateMuscleGroup(muscleGroup);
         return ResponseEntity.ok(muscleGroupUpdated);
     }
+    @PostMapping("/create")
+    public ResponseEntity<MuscleGroup> createMuscleGroup(@RequestBody MuscleGroup muscleGroup) {
+        MuscleGroup newMuscleGroup = muscleGroupService.saveMuscleGroup(muscleGroup);
+        return ResponseEntity.ok(newMuscleGroup);
+    }
+
 }

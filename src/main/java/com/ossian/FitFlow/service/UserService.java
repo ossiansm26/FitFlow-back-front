@@ -1,7 +1,6 @@
 package com.ossian.FitFlow.service;
 
-import com.ossian.FitFlow.model.Routine;
-import com.ossian.FitFlow.model.User;
+import com.ossian.FitFlow.model.*;
 
 
 import java.util.Date;
@@ -24,4 +23,21 @@ public interface UserService {
     List<Routine> getUserCreatedRoutines(Long id);
 
      User findUserByName(String name);
+
+    List<Achievement> getAllAchievements(Long id);
+
+    List<Post> findPostById(Long id);
+
+    User addAchievementToUser(Long id, Long idAchievement);
+
+    User removeAchievementToUser(Long id, Long idAchievement);
+
+    User deleteCreatedRoutine(Long id, Long idRoutine);
+
+    List<Community> getCommunity(Long id);
+
+    User removeCommunityToUser(Long id, Long idCommunity);
+
+    User addCommunityToUser(Long id, Long idCommunity);
+
 }

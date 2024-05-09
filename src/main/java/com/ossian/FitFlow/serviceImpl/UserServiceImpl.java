@@ -1,12 +1,8 @@
 package com.ossian.FitFlow.serviceImpl;
 
-import com.ossian.FitFlow.model.Routine;
-import com.ossian.FitFlow.model.User;
-import com.ossian.FitFlow.repository.PostRepository;
-import com.ossian.FitFlow.repository.RoutineRepository;
-import com.ossian.FitFlow.repository.UserRepository;
+import com.ossian.FitFlow.model.*;
+import com.ossian.FitFlow.repository.*;
 import com.ossian.FitFlow.service.UserService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +19,10 @@ public class UserServiceImpl implements UserService {
     private RoutineRepository routineRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private AchievementRepository achievementRepository;
+    @Autowired
+    private CommunityRepository communityRepository;
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService {
         user.getPost().forEach(post -> post.setUser(null));
         user.getRoutinesAssociated().forEach(routine -> routine.getUserAdded().remove(user));
         user.getRoutinesCreated().forEach(routine -> routine.getUserCreated().remove(user));
-
         userRepository.deleteById(id);
     }
 
@@ -84,11 +83,13 @@ public class UserServiceImpl implements UserService {
 
 
     public User createRoutine(Long id, Routine routine) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.getRoutinesCreated().add(routine);
         routine.getUserCreated().add(user);
-
+        user.getRoutinesAssociated().add(routine);
+        routine.getUserAdded().add(user);
         routineRepository.save(routine);
         return userRepository.save(user);
     }
@@ -119,6 +120,94 @@ public class UserServiceImpl implements UserService {
     public User findUserByName(String name) {
         return userRepository.findByName(name);
     }
+
+    @Override
+    public List<Achievement> getAllAchievements(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getAchievement();
+    }
+
+    @Override
+    public List<Post> findPostById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getPost();
+    }
+
+    @Override
+    public User addAchievementToUser(Long id, Long idAchievement) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Achievement achievement = achievementRepository.findById(idAchievement)
+                .orElseThrow(() -> new RuntimeException("Achievement not found"));
+
+        user.getAchievement().add(achievement);
+        achievement.getUser().add(user);
+
+        achievementRepository.save(achievement);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User removeAchievementToUser(Long id, Long idAchievement) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Achievement achievement = achievementRepository.findById(idAchievement)
+                .orElseThrow(() -> new RuntimeException("Achievement not found"));
+
+        user.getAchievement().remove(achievement);
+        achievement.getUser().remove(user);
+
+        achievementRepository.save(achievement);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleteCreatedRoutine(Long id, Long idRoutine) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Routine routine = routineRepository.findById(idRoutine)
+                .orElseThrow(() -> new RuntimeException("Routine not found"));
+
+        user.getRoutinesCreated().remove(routine);
+       routineRepository.delete(routine);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public List<Community> getCommunity(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getCommunityAssociated();
+    }
+
+    @Override
+    public User removeCommunityToUser(Long id, Long idCommunity) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Community community = communityRepository.findById(idCommunity)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        user.getCommunityAssociated().remove(community);
+        community.getUserAdded().remove(user);
+        communityRepository.save(community);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User addCommunityToUser(Long id, Long idCommunity) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Community community = communityRepository.findById(idCommunity)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        user.getCommunityAssociated().add(community);
+        community.getUserAdded().add(user);
+        communityRepository.save(community);
+        return userRepository.save(user);
+    }
+
+
+
 
 
 }

@@ -44,7 +44,9 @@ public Community createCommunity(Long idUser,Community community) {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         user.getCommunityCreated().add(community);
+        user.getCommunityAssociated().add(community);
         community.getUserCreated().add(user);
+        community.getUserAdded().add(user);
         userRepository.save(user);
         return communityRepository.save(community);
     }
@@ -52,6 +54,29 @@ public Community createCommunity(Long idUser,Community community) {
         return communityRepository.findAll();
     }
 
+    @Override
+    public void deleteCommunity(Long id) {
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        communityRepository.delete(community);
+    }
+
+    @Override
+    public Community getCommunityById(Long id) {
+        return communityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+    }
+
+
+
+    public Community updateCommunity(Community community, Long id) {
+        Community communityUpdated = communityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        communityUpdated.setName(community.getName());
+        communityUpdated.setDescription(community.getDescription());
+        return communityRepository.save(communityUpdated);
+
+    }
 
 
 }

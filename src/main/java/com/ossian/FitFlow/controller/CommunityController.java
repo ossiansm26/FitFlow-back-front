@@ -16,12 +16,16 @@ import java.util.List;
 public class CommunityController {
     @Autowired
     private CommunityServiceImpl communityService;
-
-    @PostMapping("/{idUser}")
-    public ResponseEntity<Community> createCommunity(@RequestBody Community community,
-                                                     @PathVariable Long idUser) {
-        Community newCommunity = communityService.createCommunity(idUser, community);
-        return ResponseEntity.ok(newCommunity);
+    @Autowired
+    private UserServiceImpl userService;
+    @GetMapping
+    public ResponseEntity<List<Community>> getAllCommunity() {
+        return ResponseEntity.ok(communityService.getAllCommunity());
+    }
+    @GetMapping("/getCommunityById/{id}")
+    public ResponseEntity<Community> getCommunityById(@PathVariable Long id) {
+        Community community = communityService.getCommunityById(id);
+        return ResponseEntity.ok(community);
     }
     @DeleteMapping("/{id}/removeUser/{idUser}")
     public ResponseEntity<Community> removeUserFromCommunity(@PathVariable Long id,
@@ -29,16 +33,35 @@ public class CommunityController {
         Community community = communityService.removeUserFromCommunity(id, idUser);
         return ResponseEntity.ok(community);
     }
-    @PostMapping("/{id}/addUser/{idUser}")
+    @DeleteMapping("/Delete/{id}")
+    public ResponseEntity<Void> deleteCommunity(@PathVariable Long id) {
+        communityService.deleteCommunity(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}/addUser/{idUser}")
     public ResponseEntity<Community> addUserToCommunity(@PathVariable Long id,
                                                         @PathVariable Long idUser) {
         Community community = communityService.addUserToCommunity(id, idUser);
         return ResponseEntity.ok(community);
     }
-    @GetMapping
-    public ResponseEntity<List<Community>> getAllCommunity() {
-        return ResponseEntity.ok(communityService.getAllCommunity());
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Community> updateCommunity(@RequestBody Community community,
+                                                     @PathVariable Long id) {
+        Community communityUpdated = communityService.updateCommunity(community, id);
+        return ResponseEntity.ok(communityUpdated);
     }
+
+    @PostMapping("/create/{idUser}")
+    public ResponseEntity<Community> createCommunity(@RequestBody Community community,
+                                                     @PathVariable Long idUser) {
+
+        Community newCommunity = communityService.createCommunity(idUser, community);
+
+        return ResponseEntity.ok(newCommunity);
+    }
+
+
+
 
 
 }

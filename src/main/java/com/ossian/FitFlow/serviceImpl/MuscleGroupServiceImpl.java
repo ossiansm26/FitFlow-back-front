@@ -26,4 +26,9 @@ public class MuscleGroupServiceImpl implements MuscleGroupService {
     public MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup) {
         return muscleGroupRepository.save(muscleGroup);
     }
+
+    @Override
+    public MuscleGroup getMuscleGroupById(Long id) {
+        return muscleGroupRepository.findById(id).orElseThrow(()-> new RuntimeException("Material not found"));
+    }
 }

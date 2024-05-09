@@ -5,6 +5,7 @@ import com.ossian.FitFlow.model.CollectionExercices;
 import com.ossian.FitFlow.model.Routine;
 import com.ossian.FitFlow.repository.CollectionExercicesRepository;
 import com.ossian.FitFlow.repository.RoutineRepository;
+import com.ossian.FitFlow.repository.UserRepository;
 import com.ossian.FitFlow.service.RoutineService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,15 @@ public class RoutineServiceImpl implements RoutineService {
     RoutineRepository routineRepository;
     @Autowired
     CollectionExercicesRepository collectionExercicesRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     public Routine saveRoutine(Routine routine){return routineRepository.save(routine);};
     public List<Routine> getAllRoutine(){return routineRepository.findAll();};
 
     public void deleteRoutine(Long id) {
+
         routineRepository.deleteById(id);
     }
 

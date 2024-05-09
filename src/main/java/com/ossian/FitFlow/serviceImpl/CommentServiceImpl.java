@@ -26,7 +26,6 @@ public class CommentServiceImpl implements CommentService {
     public Comments addCommentToPost(Long idComment, Long idPost , Long idUser) {
         Comments comment = this.comment.findById(idComment)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
-
         Post post = this.post.findById(idPost)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
         User user = this.user.findById(idUser)
