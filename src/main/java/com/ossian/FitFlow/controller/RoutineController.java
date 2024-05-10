@@ -26,7 +26,7 @@ public class RoutineController {
         List<Routine> Routine = routineService.getAllRoutine();
         return ResponseEntity.ok(Routine);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/getRoutineById/{id}")
     public ResponseEntity<Routine> getRoutineById(@PathVariable Long id) {
         Routine Routine = routineService.getRoutineById(id);
         return ResponseEntity.ok(Routine);
