@@ -16,7 +16,7 @@ public class CollectionExercicesController {
     @Autowired
     private CollectionExercicesServiceImpl collectionExercicesService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<CollectionExercices> createCollectionRoutine(@RequestBody CollectionExercices collectionExercices) {
         CollectionExercices newExercices = collectionExercicesService.saveCollectionExercices(collectionExercices);
         return ResponseEntity.ok(newExercices);

@@ -17,9 +17,16 @@ public class Exercices {
     @Column(name = "exerciseName", nullable = false)
     private String exerciseName;
     @Column(name = "duration")
-    private int duration;
+    private Long duration;
     @Column(name = "description")
     private String description;
+    @Column(name = "Weight")
+    private Long Weight;
+    @Column(name = "repetitions")
+    private Long repetitions;
+    @Column(name="feelings")
+    private String feelings;
+
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
