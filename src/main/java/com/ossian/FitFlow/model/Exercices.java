@@ -20,10 +20,6 @@ public class Exercices {
     private Long duration;
     @Column(name = "description")
     private String description;
-    @Column(name = "Weight")
-    private Long Weight;
-    @Column(name = "repetitions")
-    private Long repetitions;
     @Column(name="feelings")
     private String feelings;
 
@@ -42,5 +38,8 @@ public class Exercices {
 
     @ManyToMany(mappedBy = "exercices", cascade = CascadeType.ALL)
     List<MuscleGroup> MuscleGroup= new ArrayList<>();
+
+    @OneToMany(mappedBy="exercices",cascade = CascadeType.ALL )
+    private List<ExerciceLog> exerciceLog = new ArrayList<>();
 
 }
