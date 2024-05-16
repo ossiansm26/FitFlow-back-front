@@ -39,7 +39,7 @@ public class Exercices {
     @ManyToMany(mappedBy = "exercices", cascade = CascadeType.ALL)
     List<MuscleGroup> MuscleGroup= new ArrayList<>();
 
-    @OneToMany(mappedBy="exercices",cascade = CascadeType.ALL )
+    @OneToMany(mappedBy="exercice",cascade = CascadeType.ALL )
     private List<ExerciceLog> exerciceLog = new ArrayList<>();
 
 }

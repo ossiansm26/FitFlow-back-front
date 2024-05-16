@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.controller;
 
 import com.ossian.FitFlow.model.Community;
+import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.serviceImpl.CommunityServiceImpl;
 import com.ossian.FitFlow.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,13 @@ public class CommunityController {
         Community newCommunity = communityService.createCommunity(idUser, community);
 
         return ResponseEntity.ok(newCommunity);
+    }
+    @PostMapping("/addPost/{idCommunity}/{idUser}")
+    public ResponseEntity<Community> addPostToCommunity(@PathVariable Long idCommunity,
+                                                        @PathVariable Long idUser,
+                                                        @RequestBody Post post) {
+        Community community = communityService.addPostToCommunity(idCommunity, idUser, post);
+        return ResponseEntity.ok(community);
     }
 
 

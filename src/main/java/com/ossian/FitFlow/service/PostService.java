@@ -11,4 +11,6 @@ public interface PostService {
     void deletePost(Long id);
 
     List<Post> getAllPost();
+
+    Post likePost(Long idPost, Long idUser);
 }

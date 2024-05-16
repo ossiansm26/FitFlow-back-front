@@ -23,8 +23,6 @@ public class Post {
     private Date creationDate;
     @Column(name = "category")
     private String category;
-    @Column(name = "likes")
-    private Long likes;
 
     @JsonIgnore
     @ManyToOne
@@ -35,6 +33,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name="User_Post")
     private User user;
+
 
     @OneToMany(mappedBy="post" , cascade = CascadeType.ALL)
     private List<Comments> comment = new ArrayList<>();

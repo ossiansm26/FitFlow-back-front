@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.service;
 
 import com.ossian.FitFlow.model.Community;
+import com.ossian.FitFlow.model.Post;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface CommunityService  {
     Community getCommunityById(Long id);
 
     Community updateCommunity(Community community ,Long id);
+
+    Community addPostToCommunity(Long idCommunity, Long idUser, Post post);
 }

@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.serviceImpl;
 
 import com.ossian.FitFlow.model.Community;
+import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.model.User;
 import com.ossian.FitFlow.repository.CommunityRepository;
 import com.ossian.FitFlow.repository.UserRepository;
@@ -76,6 +77,17 @@ public Community createCommunity(Long idUser,Community community) {
         communityUpdated.setDescription(community.getDescription());
         return communityRepository.save(communityUpdated);
 
+    }
+
+    public Community addPostToCommunity(Long idCommunity, Long idUser, Post post) {
+        Community community = communityRepository.findById(idCommunity)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        post.setUser(user);
+        post.setCommunity(community);
+        community.getPost().add(post);
+        return communityRepository.save(community);
     }
 
 

@@ -53,5 +53,20 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll();
     }
 
+    @Override
+    public Post likePost(Long idPost, Long idUser) {
+        Post post = postRepository.findById(idPost)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (post.getUsersLiked().contains(user)) {
+            post.getUsersLiked().remove(user);
+        } else {
+            post.getUsersLiked().add(user);
+        }
+        return postRepository.save(post);
+    }
+
 
 }

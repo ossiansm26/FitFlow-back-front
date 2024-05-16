@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -86,6 +87,6 @@ public class User {
 
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<Comments> comment = new ArrayList<>();
-
+    
 
 }

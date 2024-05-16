@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,15 +17,17 @@ public class ExerciceLog {
     private Long id;
     @Column(name = "date")
     private Date date;
-    @Column(name = "reps")
-    private Long reps;
-    @Column(name = "weight")
-    private Long weight;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "exercice_id", nullable = false)
-    private Exercices exercices;
+    private Exercices exercice;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy="exerciceLog", cascade = CascadeType.ALL)
+    private List<Set> sets = new ArrayList<>();
 
 
 }
