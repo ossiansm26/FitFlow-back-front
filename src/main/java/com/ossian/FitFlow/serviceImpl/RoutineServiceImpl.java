@@ -7,7 +7,6 @@ import com.ossian.FitFlow.repository.CollectionExercicesRepository;
 import com.ossian.FitFlow.repository.RoutineRepository;
 import com.ossian.FitFlow.repository.UserRepository;
 import com.ossian.FitFlow.service.RoutineService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +72,12 @@ public class RoutineServiceImpl implements RoutineService {
 
     public Routine getRoutineById(Long id) {
         return routineRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<CollectionExercices> getExercicesByRoutine(Long routineId) {
+        return routineRepository.findById(routineId)
+                .orElseThrow(() -> new RuntimeException("Routine not found")).getExercicesCollection();
     }
 
 

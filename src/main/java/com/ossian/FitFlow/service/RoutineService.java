@@ -3,11 +3,6 @@ package com.ossian.FitFlow.service;
 
 import com.ossian.FitFlow.model.CollectionExercices;
 import com.ossian.FitFlow.model.Routine;
-import com.ossian.FitFlow.repository.CollectionExercicesRepository;
-import com.ossian.FitFlow.repository.RoutineRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +25,8 @@ public interface RoutineService {
 
 
     Routine getRoutineById(Long id);
+
+    List<CollectionExercices> getExercicesByRoutine(Long routineId);
 }
 
 

@@ -8,6 +8,7 @@ import com.ossian.FitFlow.serviceImpl.RoutineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.ossian.FitFlow.model.CollectionExercices;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,11 @@ public class RoutineController {
                                                                            @PathVariable Date endDate) {
         List<Routine> Routine = routineService.searchRoutineByStartDateIsBetween(startDate, endDate);
         return ResponseEntity.ok(Routine);
+    }
+    @GetMapping("/{routineId}/getExercices")
+    public ResponseEntity<List<CollectionExercices>> getExercicesByRoutine(@PathVariable Long routineId) {
+        List<CollectionExercices> exercicesCollection = routineService.getExercicesByRoutine(routineId);
+        return ResponseEntity.ok(exercicesCollection);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteRoutine(@PathVariable Long id) {
