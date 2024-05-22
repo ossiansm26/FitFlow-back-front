@@ -34,11 +34,7 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping("/like/{idPost}/{idUser}")
-    public ResponseEntity<Post> likePost(@PathVariable Long idPost, @PathVariable Long idUser) {
-        Post post = postService.likePost(idPost, idUser);
-        return ResponseEntity.ok(post);
-    }
+
 
 
 

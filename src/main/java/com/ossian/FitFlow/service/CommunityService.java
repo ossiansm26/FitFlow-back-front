@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.service;
 
+import com.ossian.FitFlow.model.Comments;
 import com.ossian.FitFlow.model.Community;
 import com.ossian.FitFlow.model.Post;
 
@@ -18,4 +19,6 @@ public interface CommunityService  {
     Community updateCommunity(Community community ,Long id);
 
     Community addPostToCommunity(Long idCommunity, Long idUser, Post post);
+
+    Post addReplyToPost(Long idPost,Long idUser, Comments comment);
 }

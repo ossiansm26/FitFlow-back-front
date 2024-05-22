@@ -74,6 +74,12 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Exercices> getExercicesByCollectionExercices(Long id) {
+        CollectionExercices collectionExercices = collectionCollectionExercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));
+        return collectionExercices.getExercices();
+    }
 
 
 }

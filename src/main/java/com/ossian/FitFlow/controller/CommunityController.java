@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.controller;
 
+import com.ossian.FitFlow.model.Comments;
 import com.ossian.FitFlow.model.Community;
 import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.serviceImpl.CommunityServiceImpl;
@@ -66,6 +67,14 @@ public class CommunityController {
                                                         @RequestBody Post post) {
         Community community = communityService.addPostToCommunity(idCommunity, idUser, post);
         return ResponseEntity.ok(community);
+    }
+    @PostMapping("/addReply/{idPost}/{idUser}")
+    public ResponseEntity<Post> addReplyToPost(@PathVariable Long idPost,
+                                                  @PathVariable Long idUser,
+                                               @RequestBody Comments comment) {
+        System.out.println("comment: " + comment);
+        Post postUpdated = communityService.addReplyToPost(idPost,idUser, comment);
+        return ResponseEntity.ok(postUpdated);
     }
 
 

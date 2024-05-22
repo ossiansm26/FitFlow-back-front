@@ -1,11 +1,15 @@
 package com.ossian.FitFlow.serviceImpl;
 
+import com.ossian.FitFlow.model.Comments;
 import com.ossian.FitFlow.model.Community;
 import com.ossian.FitFlow.model.Post;
 import com.ossian.FitFlow.model.User;
+import com.ossian.FitFlow.repository.CommentRepository;
 import com.ossian.FitFlow.repository.CommunityRepository;
+import com.ossian.FitFlow.repository.PostRepository;
 import com.ossian.FitFlow.repository.UserRepository;
 import com.ossian.FitFlow.service.CommunityService;
+import org.springdoc.webmvc.ui.SwaggerWelcomeWebMvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,13 @@ public class CommunityServiceImpl implements CommunityService{
     CommunityRepository communityRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PostRepository postRepository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    private SwaggerWelcomeWebMvc swaggerWelcome;
+
     public Community removeUserFromCommunity(Long id, Long idUser) {
         Community community = communityRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Community not found"));
@@ -88,6 +99,19 @@ public Community createCommunity(Long idUser,Community community) {
         post.setCommunity(community);
         community.getPost().add(post);
         return communityRepository.save(community);
+    }
+
+    @Override
+    public Post addReplyToPost(Long idPost, Long idUser, Comments comment) {
+          Post post = postRepository.findById(idPost)
+                 .orElseThrow(() -> new RuntimeException("Post not found"));
+            User user = userRepository.findById(idUser)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            comment.setUser(user);
+          post.getComment().add(comment);
+          comment.setPost(post);
+          commentRepository.save(comment);
+          return postRepository.save(post);
     }
 
 

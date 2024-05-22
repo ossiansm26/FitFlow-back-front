@@ -30,5 +30,5 @@ public interface CollectionExercicesService {
     List<CollectionExercices> findByDifficulty(int difficulty);
 
 
-
+    List<Exercices> getExercicesByCollectionExercices(Long id);
 }

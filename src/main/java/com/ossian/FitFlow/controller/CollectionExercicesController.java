@@ -2,6 +2,7 @@ package com.ossian.FitFlow.controller;
 
 
 import com.ossian.FitFlow.model.CollectionExercices;
+import com.ossian.FitFlow.model.Exercices;
 import com.ossian.FitFlow.serviceImpl.CollectionExercicesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,11 @@ public class CollectionExercicesController {
     @GetMapping("/getExercicesByDifficulty/{difficulty}")
     public ResponseEntity<List<CollectionExercices>> searchExercicesByDifficulty(@PathVariable int difficulty) {
         List<CollectionExercices> collectionExercices = collectionExercicesService.findByDifficulty(difficulty);
+        return ResponseEntity.ok(collectionExercices);
+    }
+    @GetMapping("{id}/getExercices")
+    public ResponseEntity<List<Exercices>> getExercicesByCollectionExercices(@PathVariable Long id) {
+        List<Exercices> collectionExercices = collectionExercicesService.getExercicesByCollectionExercices(id);
         return ResponseEntity.ok(collectionExercices);
     }
 

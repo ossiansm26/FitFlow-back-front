@@ -34,7 +34,6 @@ public class Post {
     @JoinColumn(name="User_Post")
     private User user;
 
-
     @OneToMany(mappedBy="post" , cascade = CascadeType.ALL)
     private List<Comments> comment = new ArrayList<>();
 

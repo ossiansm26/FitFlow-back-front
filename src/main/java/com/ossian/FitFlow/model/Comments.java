@@ -17,8 +17,7 @@ public class Comments {
     private String content;
     @Column(name = "creationDate")
     private Date creationDate;
-    @Column(name = "likes")
-    private Long likes;
+
 
     @JsonIgnore
     @ManyToOne
