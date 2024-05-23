@@ -21,13 +21,23 @@ public interface ExercicesService {
 
    List<Exercices> getAllExercices();
 
-    public void deleteExercices(Long id);
+   void deleteExercices(Long id);
 
-    public Exercices updateExercices(Exercices exercices);
+   Exercices updateExercices(Exercices exercices);
 
-    public Exercices addMaterialToExercices(Long id, Long idMaterial);
+   Exercices addMaterialToExercices(Long id, Long idMaterial);
 
-    public Exercices addMuscleGroupToExercices(Long id, Long idMuscleGroup);
+    Exercices addMuscleGroupToExercices(Long id, Long idMuscleGroup);
 
-    public  List<Exercices> getExercicesByDuration(int duration);
+    List<Exercices> getExercicesByDuration(int duration);
+
+    Exercices getExercicesById(Long id);
+
+    Exercices deleteMaterialFromExercices(Long id, Long idMaterial);
+
+    List<Material> getMaterialsFromExercices(Long id);
+
+    List<MuscleGroup> getMuscleGroupFromExercices(Long id);
+
+    Exercices deleteMuscleGroupFromExercices(Long id, Long idMuscleGroup);
 }

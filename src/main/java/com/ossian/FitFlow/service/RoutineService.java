@@ -17,11 +17,11 @@ public interface RoutineService {
 
     Routine updateRoutine(Routine routine);
 
-    public Routine addCollectionExercicesToRoutine(Long id, Long idCollectionExercices);
+    Routine addCollectionExercicesToRoutine(Long id, Long idCollectionExercices);
 
      Routine removeCollectionExercicesToRoutine(Long id, Long idCollectionExercices);
 
-    public List<Routine> searchRoutineByStartDateIsBetween(Date date1, Date date2);
+    List<Routine> searchRoutineByStartDateIsBetween(Date date1, Date date2);
 
 
     Routine getRoutineById(Long id);

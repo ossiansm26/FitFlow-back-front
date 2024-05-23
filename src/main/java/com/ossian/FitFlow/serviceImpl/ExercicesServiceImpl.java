@@ -69,4 +69,53 @@ public class ExercicesServiceImpl implements ExercicesService {
         return exercicesRepository.findByDurationIsAfter(duration);
     }
 
+    @Override
+    public Exercices getExercicesById(Long id) {
+        return exercicesRepository.findById(id).orElseThrow(() -> new RuntimeException("Exercices not found"));
+
+    }
+
+    public Exercices deleteMaterialFromExercices(Long id, Long idMaterial) {
+        Exercices exercices = exercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercices not found"));
+
+        Material material = materialRepository.findById(idMaterial)
+                .orElseThrow(() -> new RuntimeException("Material not found"));
+
+        exercices.getMaterial().remove(material);
+        material.getExercices().remove(exercices);
+
+        materialRepository.save(material);
+        return exercicesRepository.save(exercices);
+
+    }
+
+    @Override
+    public List<Material> getMaterialsFromExercices(Long id) {
+        Exercices exercices = exercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercices not found"));
+        return exercices.getMaterial();
+    }
+
+    @Override
+    public List<MuscleGroup> getMuscleGroupFromExercices(Long id) {
+        Exercices exercices = exercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercices not found"));
+        return exercices.getMuscleGroup();
+    }
+
+    @Override
+    public Exercices deleteMuscleGroupFromExercices(Long id, Long idMuscleGroup) {
+        Exercices exercices = exercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercices not found"));
+
+        MuscleGroup muscleGroup = muscleGroupRepository.findById(idMuscleGroup)
+                .orElseThrow(() -> new RuntimeException("MuscleGroup not found"));
+
+        exercices.getMuscleGroup().remove(muscleGroup);
+        muscleGroup.getExercices().remove(exercices);
+
+        muscleGroupRepository.save(muscleGroup);
+        return exercicesRepository.save(exercices);
+    }
 }

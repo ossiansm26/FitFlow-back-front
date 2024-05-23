@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface MuscleGroupService {
 
-    public MuscleGroup saveMuscleGroup(MuscleGroup muscleGroup);
-    public List<MuscleGroup> getAllMuscleGroup();
+    MuscleGroup saveMuscleGroup(MuscleGroup muscleGroup);
+    List<MuscleGroup> getAllMuscleGroup();
 
-    public void deleteMuscleGroup(Long id);
+    void deleteMuscleGroup(Long id);
 
-    public MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup);
+    MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup);
 
     MuscleGroup getMuscleGroupById(Long id);
 }
