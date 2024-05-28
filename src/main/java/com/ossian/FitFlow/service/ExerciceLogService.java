@@ -1,4 +1,9 @@
 package com.ossian.FitFlow.service;
 
+import com.ossian.FitFlow.model.ExerciceLog;
+
+import java.util.List;
+
 public interface ExerciceLogService {
+    List<ExerciceLog> getAllExerciceLog();
 }

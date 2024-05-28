@@ -22,6 +22,7 @@ public class ExerciceLog {
     @JoinColumn(name = "exercice_id", nullable = false)
     private Exercices exercice;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

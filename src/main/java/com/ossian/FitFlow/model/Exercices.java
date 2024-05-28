@@ -20,8 +20,8 @@ public class Exercices {
     private Long duration;
     @Column(name = "description")
     private String description;
-    @Column(name="feelings")
-    private String feelings;
+    @Column(name = "UrlImage")
+    private String UrlImage;
 
 
     @JsonIgnore
@@ -39,6 +39,7 @@ public class Exercices {
     @ManyToMany(mappedBy = "exercices", cascade = CascadeType.ALL)
     List<MuscleGroup> MuscleGroup= new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy="exercice",cascade = CascadeType.ALL )
     private List<ExerciceLog> exerciceLog = new ArrayList<>();
 

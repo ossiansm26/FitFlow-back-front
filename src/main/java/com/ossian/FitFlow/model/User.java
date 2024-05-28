@@ -87,6 +87,9 @@ public class User {
 
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<Comments> comment = new ArrayList<>();
-    
+
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
+    private List<ExerciceLog> exerciceLog = new ArrayList<>();
+
 
 }

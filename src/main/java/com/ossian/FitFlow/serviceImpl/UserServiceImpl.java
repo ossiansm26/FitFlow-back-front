@@ -3,6 +3,8 @@ package com.ossian.FitFlow.serviceImpl;
 import com.ossian.FitFlow.model.*;
 import com.ossian.FitFlow.repository.*;
 import com.ossian.FitFlow.service.UserService;
+import com.ossian.FitFlow.repository.ExerciceLogRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private AchievementRepository achievementRepository;
     @Autowired
     private CommunityRepository communityRepository;
+    @Autowired
+    private ExerciceLogRepository exerciseLogRepository;
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -205,6 +209,29 @@ public class UserServiceImpl implements UserService {
         communityRepository.save(community);
         return userRepository.save(user);
     }
+    public User removeExerciseLogToUser(Long id, Long idExerciseLog) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        ExerciceLog exerciseLog = exerciseLogRepository.findById(idExerciseLog)
+                .orElseThrow(() -> new RuntimeException("ExerciseLog not found"));
+        user.getExerciceLog().remove(exerciseLog);
+        exerciseLogRepository.delete(exerciseLog);
+        return userRepository.save(user);
+    }
+    public User addExerciseLogToUser(Long id, ExerciceLog exerciseLog) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.getExerciceLog().add(exerciseLog);
+        exerciseLog.setUser(user);
+        exerciseLogRepository.save(exerciseLog);
+        return userRepository.save(user);
+    }
+    public List<ExerciceLog> getExerciseLog(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getExerciceLog();
+    }
+
 
 
 }

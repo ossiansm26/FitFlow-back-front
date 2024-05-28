@@ -21,6 +21,6 @@ public class Set {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "exercice_log_id", nullable = false)
+    @JoinColumn(name = "exercice_log_id")
     private ExerciceLog exerciceLog;
 }

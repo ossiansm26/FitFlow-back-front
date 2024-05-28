@@ -18,7 +18,7 @@ public class ExercicesController {
     @Autowired
     private ExercicesServiceImpl exercicesService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Exercices> createExercices(@RequestBody Exercices exercices) {
         Exercices newExercices = exercicesService.saveExercices(exercices);
         return ResponseEntity.ok(newExercices);
@@ -34,7 +34,7 @@ public class ExercicesController {
         exercicesService.deleteExercices(id);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping("/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity<Exercices> updateExercices(@RequestBody Exercices exercices) {
         Exercices exercicesUpdated = exercicesService.updateExercices(exercices);
         return ResponseEntity.ok(exercicesUpdated);

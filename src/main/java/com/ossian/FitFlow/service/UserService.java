@@ -19,26 +19,22 @@ public interface UserService {
      User createRoutine(Long id, Routine routine);
      List<User> findUserByAgeIsGreaterThan(Date age);
      User findUserByEmail(String email);
-    List<Routine> getUserRoutines(Long id);
-    List<Routine> getUserCreatedRoutines(Long id);
-
+     List<Routine> getUserRoutines(Long id);
+     List<Routine> getUserCreatedRoutines(Long id);
      User findUserByName(String name);
+     List<Achievement> getAllAchievements(Long id);
+     List<Post> findPostById(Long id);
+     User addAchievementToUser(Long id, Long idAchievement);
+     User removeAchievementToUser(Long id, Long idAchievement);
+     User deleteCreatedRoutine(Long id, Long idRoutine);
+     List<Community> getCommunity(Long id);
+     User removeCommunityToUser(Long id, Long idCommunity);
+     User addCommunityToUser(Long id, Long idCommunity);
+     User removeExerciseLogToUser(Long id, Long idExerciseLog);
+     User addExerciseLogToUser(Long id, ExerciceLog exerciseLog);
+     List<ExerciceLog> getExerciseLog(Long id);
 
-    List<Achievement> getAllAchievements(Long id);
 
-    List<Post> findPostById(Long id);
-
-    User addAchievementToUser(Long id, Long idAchievement);
-
-    User removeAchievementToUser(Long id, Long idAchievement);
-
-    User deleteCreatedRoutine(Long id, Long idRoutine);
-
-    List<Community> getCommunity(Long id);
-
-    User removeCommunityToUser(Long id, Long idCommunity);
-
-    User addCommunityToUser(Long id, Long idCommunity);
 
 
 }

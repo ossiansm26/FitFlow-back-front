@@ -28,7 +28,7 @@ public class CollectionExercicesController {
         List<CollectionExercices> collectionExercices =  collectionExercicesService.getAllCollectionExercices();
         return ResponseEntity.ok(collectionExercices);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCollectionExercices(@PathVariable Long id) {
         collectionExercicesService.deleteCollectionExercices(id);
         return ResponseEntity.noContent().build();

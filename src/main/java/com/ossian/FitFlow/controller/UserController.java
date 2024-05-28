@@ -138,7 +138,18 @@ public class UserController {
         User newUser = userService.saveUser(user);
         return ResponseEntity.ok(newUser);
     }
-
+    @PostMapping("/{id}/addExerciseLog")
+    public ResponseEntity<User> addExerciseLogToUser(@PathVariable Long id,
+                                                     @RequestBody ExerciceLog exerciceLog) {
+        User user = userService.addExerciseLogToUser(id, exerciceLog);
+        return ResponseEntity.ok(user);
+    }
+    @DeleteMapping("/{id}/deleteExerciseLog/{idExerciseLog}")
+    public ResponseEntity<User> deleteExerciseLogFromUser(@PathVariable Long id,
+                                                          @PathVariable Long idExerciseLog) {
+        User user = userService.removeExerciseLogToUser(id, idExerciseLog);
+        return ResponseEntity.ok(user);
+    }
 
 
 }
