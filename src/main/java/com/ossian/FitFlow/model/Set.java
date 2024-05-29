@@ -18,7 +18,6 @@ public class Set {
 
     @Column(name = "reps")
     private Integer reps;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "exercice_log_id")

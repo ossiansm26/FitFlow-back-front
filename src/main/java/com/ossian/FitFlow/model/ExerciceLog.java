@@ -24,7 +24,7 @@ public class ExerciceLog {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy="exerciceLog", cascade = CascadeType.ALL)

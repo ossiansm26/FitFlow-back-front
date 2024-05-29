@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ExerciceLogService {
     List<ExerciceLog> getAllExerciceLog();
+
+    ExerciceLog saveExerciceLog(ExerciceLog exerciceLog);
 }

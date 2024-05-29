@@ -20,6 +20,11 @@ public class ExerciceLogController {
         List<ExerciceLog> exerciceLog = exerciceLogService.getAllExerciceLog();
         return ResponseEntity.ok(exerciceLog);
     }
+    @PostMapping("/create")
+    public ResponseEntity<ExerciceLog> createExerciceLog(@RequestBody ExerciceLog exerciceLog) {
+        ExerciceLog newExerciceLog = exerciceLogService.saveExerciceLog(exerciceLog);
+        return ResponseEntity.ok(newExerciceLog);
+    }
 
 
 }

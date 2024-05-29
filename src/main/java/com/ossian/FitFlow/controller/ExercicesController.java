@@ -26,8 +26,8 @@ public class ExercicesController {
 
     @GetMapping
     public ResponseEntity<List<Exercices>> getAllExercices() {
-        List<Exercices> Routine = exercicesService.getAllExercices();
-        return ResponseEntity.ok(Routine);
+        List<Exercices> exercice = exercicesService.getAllExercices();
+        return ResponseEntity.ok(exercice);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExercices(@PathVariable Long id) {
