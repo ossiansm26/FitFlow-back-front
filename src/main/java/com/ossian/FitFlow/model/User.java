@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,7 +43,7 @@ public class User {
     @Column(name = "image")
     private String image;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "userCreated_routinesCreated",
             joinColumns = @JoinColumn(name = "routine_id"),
@@ -91,5 +92,14 @@ public class User {
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL )
     private List<ExerciceLog> exerciceLog = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "participants")
+    @JsonBackReference
+    private List<Chat> chats = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private List<Message> messagesSent = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
+    private List<Message> messagesReceived = new ArrayList<>();
 
 }
