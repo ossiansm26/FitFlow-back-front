@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.service;
 
+import com.ossian.FitFlow.dto.MessageDTO;
 import com.ossian.FitFlow.model.Chat;
 import com.ossian.FitFlow.model.Message;
 import com.ossian.FitFlow.model.User;
@@ -13,5 +14,11 @@ public interface ChatService {
     Chat findOrCreateChat(User sender, User recipient);
 
 
-    void sendMessage(Message privateMessage);
+    void sendMessage(MessageDTO privateMessage);
+
+    List<Message> getMessagesFromChat(Long chatId);
+
+    List<Chat> getAllChats();
+
+    Chat createChat(Long userId, Long recipientId);
 }

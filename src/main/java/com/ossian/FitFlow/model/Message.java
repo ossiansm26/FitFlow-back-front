@@ -1,5 +1,7 @@
 package com.ossian.FitFlow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,16 +18,17 @@ public class Message {
     @Column(name = "timestamp", nullable = false)
     private Date timestamp;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "chat_id", nullable = false)
     private Chat chat;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false) // Different column name for sender
+    @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "recipient_id", nullable = false) // Different column name for recipient
+    @JoinColumn(name = "recipient_id", nullable = false)
     private User recipient;
 
     @Column(name = "content", nullable = false)

@@ -1,5 +1,6 @@
 package com.ossian.FitFlow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,14 +17,13 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonManagedReference
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "chat_users",
             joinColumns = @JoinColumn(name = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-
     private List<User> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)

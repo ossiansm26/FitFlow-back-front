@@ -1,14 +1,15 @@
 package com.ossian.FitFlow.controller;
 
+import com.ossian.FitFlow.dto.MessageDTO;
 import com.ossian.FitFlow.model.Chat;
 import com.ossian.FitFlow.model.Message;
 import com.ossian.FitFlow.model.User;
 import com.ossian.FitFlow.serviceImpl.ChatServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import java.util.List;
 
@@ -19,15 +20,27 @@ public class ChatController {
     @Autowired
     private ChatServiceImpl chatService;
 
+
     @MessageMapping("/chat.sendMessage")
-    public void sendMessage(Message privateMessage) {
-        System.out.println("Message sent");
-       chatService.sendMessage(privateMessage);
+    public void sendMessage(MessageDTO privateMessage) {
+        chatService.sendMessage(privateMessage);
     }
-    @MessageMapping("/chat.getChats/{userId}")
+
+    @GetMapping("/getChats/{userId}")
     public List<Chat> getChats(@PathVariable Long userId) {
         return chatService.getAllChatsFromUser(userId);
-
+    }
+    @GetMapping("/chat.getMessages/{chatId}")
+    public List<Message> getMessages(@PathVariable Long chatId) {
+        return chatService.getMessagesFromChat(chatId);
+    }
+    @PostMapping("/createChat/{userId}/{recipientId}")
+    public Chat createChat(@PathVariable Long userId, @PathVariable Long recipientId) {
+        return chatService.createChat(userId, recipientId);
+    }
+    @GetMapping("/allChats")
+    public List<Chat> getAllChats() {
+        return chatService.getAllChats();
     }
 
 
