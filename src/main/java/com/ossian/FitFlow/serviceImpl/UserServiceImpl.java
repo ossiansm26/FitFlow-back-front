@@ -4,8 +4,11 @@ import com.ossian.FitFlow.model.*;
 import com.ossian.FitFlow.repository.*;
 import com.ossian.FitFlow.service.UserService;
 import com.ossian.FitFlow.repository.ExerciceLogRepository;
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -27,6 +30,10 @@ public class UserServiceImpl implements UserService {
     private CommunityRepository communityRepository;
     @Autowired
     private ExerciceLogRepository exerciseLogRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -47,15 +54,12 @@ public class UserServiceImpl implements UserService {
 
 
     public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     public List<User> getAllUser() {
         return userRepository.findAll();
-       /* return userRepository.findAll().stream()
-                .map(UserDTO::new)
-                .collect(Collectors.toList());
-        */
     }
 
 
@@ -232,6 +236,17 @@ public class UserServiceImpl implements UserService {
         return user.getExerciceLog();
     }
 
+    @Override
+    public User authenticate(String email, String password) {
+        System.out.println(email);
+        System.out.println(password);
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password)
+        );
+        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        User user = userRepository.findUserByEmail(email);
+        return user;
+    }
 
 
 }

@@ -28,12 +28,17 @@ public class CollectionExercicesController {
         List<CollectionExercices> collectionExercices =  collectionExercicesService.getAllCollectionExercices();
         return ResponseEntity.ok(collectionExercices);
     }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<CollectionExercices> getCollectionExercicesById(@PathVariable Long id) {
+        CollectionExercices collectionExercices = collectionExercicesService.findById(id);
+        return ResponseEntity.ok(collectionExercices);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCollectionExercices(@PathVariable Long id) {
         collectionExercicesService.deleteCollectionExercices(id);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CollectionExercices> updateCollectionExercices(@RequestBody CollectionExercices collectionExercices) {
         CollectionExercices collectionExercicesUpdated = collectionExercicesService.updateCollectionExercices(collectionExercices);
         return ResponseEntity.ok(collectionExercicesUpdated);

@@ -31,4 +31,6 @@ public interface CollectionExercicesService {
 
 
     List<Exercices> getExercicesByCollectionExercices(Long id);
+
+    CollectionExercices findById(Long id);
 }

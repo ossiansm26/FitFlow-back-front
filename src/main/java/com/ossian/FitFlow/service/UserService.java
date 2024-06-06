@@ -35,6 +35,5 @@ public interface UserService {
      List<ExerciceLog> getExerciseLog(Long id);
 
 
-
-
+    User authenticate(String email, String password);
 }

@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.serviceImpl;
 
 import com.ossian.FitFlow.dto.MessageDTO;
+import com.ossian.FitFlow.dto.UserDTO;
 import com.ossian.FitFlow.model.Chat;
 import com.ossian.FitFlow.model.Message;
 import com.ossian.FitFlow.model.User;
@@ -48,27 +49,27 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void sendMessage(MessageDTO privateMessage) {
-        System.out.println(privateMessage);
         User sender = userRepository.findById(privateMessage.getSenderId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         User recipient = userRepository.findById(privateMessage.getRecipientId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        String content = privateMessage.getContent();
+
         Chat chat = findOrCreateChat(sender, recipient);
+
         Message message = new Message();
         message.setChat(chat);
         message.setSender(sender);
         message.setRecipient(recipient);
-        message.setContent(content);
+        message.setContent(privateMessage.getContent());
         message.setTimestamp(privateMessage.getTimestamp());
-        System.out.println("/topic/chat/" + chat.getId());
-        messagingTemplate.convertAndSend("/topic/chat/" + chat.getId(), message);
-        System.out.println("/topic/chat/" + chat.getId());
-        messageRepository.save(message);
-        messagingTemplate.convertAndSendToUser(recipient.getName(), "/queue/messages", message);
-    }
 
+        messageRepository.save(message);
+
+        MessageDTO messageDTO = convertToDto(message);
+
+        messagingTemplate.convertAndSend("/topic/chat/" + chat.getId(), messageDTO);
+        messagingTemplate.convertAndSendToUser(recipient.getName(), "/queue/messages", messageDTO);
+    }
     @Override
     public List<Message> getMessagesFromChat(Long chatId) {
         Chat chat = chatRepository.findById(chatId)
@@ -97,6 +98,7 @@ public class ChatServiceImpl implements ChatService {
     public Chat findOrCreateChat(User sender, User recipient) {
         Pageable pageable = PageRequest.of(0, 1);
         List<Chat> chats = chatRepository.findChatByParticipants(sender, recipient, pageable);
+        System.out.println(sender.getName());
         if (!chats.isEmpty()) {
             return chats.get(0);
         } else {
@@ -105,6 +107,25 @@ public class ChatServiceImpl implements ChatService {
             newChat.getParticipants().add(recipient);
             return chatRepository.save(newChat);
         }
+    }
+
+    private MessageDTO convertToDto(Message message) {
+        MessageDTO dto = new MessageDTO();
+        dto.setId(message.getId());
+        dto.setContent(message.getContent());
+        dto.setTimestamp(message.getTimestamp());
+
+        UserDTO senderDto = new UserDTO();
+        senderDto.setId(message.getSender().getId());
+        senderDto.setName(message.getSender().getName());
+        dto.setSender(senderDto);
+
+        UserDTO recipientDto = new UserDTO();
+        recipientDto.setId(message.getRecipient().getId());
+        recipientDto.setName(message.getRecipient().getName());
+        dto.setRecipient(recipientDto);
+
+        return dto;
     }
 
 

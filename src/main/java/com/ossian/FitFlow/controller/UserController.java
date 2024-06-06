@@ -2,12 +2,19 @@ package com.ossian.FitFlow.controller;
 
 import com.ossian.FitFlow.model.*;
 import com.ossian.FitFlow.serviceImpl.UserServiceImpl;
+
+import com.ossian.FitFlow.webConfig.security.AuthResponse;
+
+
+import com.ossian.FitFlow.webConfig.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -16,6 +23,8 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
 
     @GetMapping("/getById/{id}")
@@ -116,13 +125,18 @@ public class UserController {
         User user = userService.addCommunityToUser(id, idCommunity);
         return ResponseEntity.ok(user);
     }
-    @PutMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        User userLogin = userService.findUserByEmail(user.getEmail());
-        if (userLogin.getPassword().equals(user.getPassword())) {
-            return ResponseEntity.ok(userLogin);
-        } else {
-            return ResponseEntity.badRequest().build();
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User useraut) {
+        try {
+            System.out.println(useraut);
+
+            User user = userService.authenticate(useraut.getEmail(), useraut.getPassword());
+            System.out.println(user);
+            String accessToken = jwtUtil.generateToken(user.getEmail());
+            System.out.println(accessToken);
+            return ResponseEntity.ok(new AuthResponse(accessToken));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
     @PostMapping("/createRoutine/{id}")
@@ -132,7 +146,7 @@ public class UserController {
     }
     @PostMapping("/createUser")
     public ResponseEntity<User> createUsuario(@RequestBody User user) {
-        if (userService.findUserByEmail(user.getEmail()) != null) {
+        if (userService.findUserByEmail(user.getEmail()) != null){
             return ResponseEntity.badRequest().build();
         }
         User newUser = userService.saveUser(user);

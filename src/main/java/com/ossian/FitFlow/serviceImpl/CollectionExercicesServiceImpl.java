@@ -81,5 +81,12 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
         return collectionExercices.getExercices();
     }
 
+    @Override
+    public CollectionExercices findById(Long id) {
+        return collectionCollectionExercicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));
+
+    }
+
 
 }
