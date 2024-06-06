@@ -55,6 +55,7 @@ public class User implements UserDetails {
     @Column(name = "image")
     private String image;
 
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "userCreated_routinesCreated",

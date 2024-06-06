@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/material")
+@RequestMapping("api/material")
 @CrossOrigin(origins = "http://localhost:8080")
 public class MaterialController {
     @Autowired

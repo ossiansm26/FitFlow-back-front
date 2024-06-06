@@ -1,10 +1,12 @@
 package com.ossian.FitFlow.service;
 
 import com.ossian.FitFlow.model.*;
+import org.springframework.http.ResponseEntity;
 
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public interface UserService {
@@ -34,6 +36,9 @@ public interface UserService {
      User addExerciseLogToUser(Long id, ExerciceLog exerciseLog);
      List<ExerciceLog> getExerciseLog(Long id);
 
+     ResponseEntity<String> authenticate(Map<String,String> requestmap);
 
-    User authenticate(String email, String password);
+    User findByEmail(String username);
+
+    ResponseEntity<?> authenticateUser(Map<String, String> userAuth);
 }

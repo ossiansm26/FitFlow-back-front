@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/community")
+@RequestMapping("api/community")
 @CrossOrigin(origins = "http://localhost:8080")
 public class CommunityController {
     @Autowired

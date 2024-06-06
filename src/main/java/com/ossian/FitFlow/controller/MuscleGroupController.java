@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/muscleGroup")
+@RequestMapping("api/muscleGroup")
 @CrossOrigin(origins = "http://localhost:8080")
 public class MuscleGroupController {
 

@@ -2,19 +2,28 @@ package com.ossian.FitFlow.serviceImpl;
 
 import com.ossian.FitFlow.model.*;
 import com.ossian.FitFlow.repository.*;
+import com.ossian.FitFlow.security.CustomerDetailsService;
+import com.ossian.FitFlow.security.jwt.JwtUtil;
 import com.ossian.FitFlow.service.UserService;
 import com.ossian.FitFlow.repository.ExerciceLogRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -33,7 +42,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CustomerDetailsService customerDetailsService;
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -54,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
 
     public User saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(user);
         return userRepository.save(user);
     }
 
@@ -64,8 +76,8 @@ public class UserServiceImpl implements UserService {
 
 
     public void deleteUser(Long id) {
-      User user = userRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
         user.getPost().forEach(post -> post.setUser(null));
         user.getRoutinesAssociated().forEach(routine -> routine.getUserAdded().remove(user));
         user.getRoutinesCreated().forEach(routine -> routine.getUserCreated().remove(user));
@@ -107,6 +119,7 @@ public class UserServiceImpl implements UserService {
                 .filter(user -> user.getAge().after(age))
                 .collect(Collectors.toList());
     }
+
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -179,7 +192,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("Routine not found"));
 
         user.getRoutinesCreated().remove(routine);
-       routineRepository.delete(routine);
+        routineRepository.delete(routine);
         return userRepository.save(user);
     }
 
@@ -213,6 +226,7 @@ public class UserServiceImpl implements UserService {
         communityRepository.save(community);
         return userRepository.save(user);
     }
+
     public User removeExerciseLogToUser(Long id, Long idExerciseLog) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -222,6 +236,7 @@ public class UserServiceImpl implements UserService {
         exerciseLogRepository.delete(exerciseLog);
         return userRepository.save(user);
     }
+
     public User addExerciseLogToUser(Long id, ExerciceLog exerciseLog) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -230,23 +245,46 @@ public class UserServiceImpl implements UserService {
         exerciseLogRepository.save(exerciseLog);
         return userRepository.save(user);
     }
+
     public List<ExerciceLog> getExerciseLog(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getExerciceLog();
     }
 
+    public ResponseEntity<String> authenticate(Map<String, String> requestMap) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
+            );
+
+            if (authentication.isAuthenticated()) {
+                String token = jwtUtil.generateToken(requestMap.get("email"));
+                return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("{\"mensaje\":\"Credenciales inválidas\"}");
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"mensaje\":\"Credenciales incorrectas\"}");
+        }
+    }
+
     @Override
-    public User authenticate(String email, String password) {
-        System.out.println(email);
-        System.out.println(password);
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
-        );
-        org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-        User user = userRepository.findUserByEmail(email);
-        return user;
+    public User findByEmail(String username) {
+        return userRepository.findByEmail(username);
+    }
+
+    @Override
+    public ResponseEntity<?> authenticateUser(Map<String, String> userAuth) {
+         User user = userRepository.findByEmail(userAuth.get("email"));
+        if (user.getPassword().equals(userAuth.get("password"))) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
     }
 
 
-}

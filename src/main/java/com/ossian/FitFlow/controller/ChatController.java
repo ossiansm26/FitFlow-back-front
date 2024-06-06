@@ -14,7 +14,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("api/chat")
 @CrossOrigin(origins = "http://localhost:8080")
 public class ChatController {
     @Autowired

@@ -3,11 +3,8 @@ package com.ossian.FitFlow.controller;
 import com.ossian.FitFlow.model.*;
 import com.ossian.FitFlow.serviceImpl.UserServiceImpl;
 
-import com.ossian.FitFlow.webConfig.security.AuthResponse;
-
-
-import com.ossian.FitFlow.webConfig.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("api/user")
 @CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
-    @Autowired
-    private JwtUtil jwtUtil;
+
 
 
     @GetMapping("/getById/{id}")
@@ -125,24 +121,29 @@ public class UserController {
         User user = userService.addCommunityToUser(id, idCommunity);
         return ResponseEntity.ok(user);
     }
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User useraut) {
-        try {
-            System.out.println(useraut);
 
-            User user = userService.authenticate(useraut.getEmail(), useraut.getPassword());
-            System.out.println(user);
-            String accessToken = jwtUtil.generateToken(user.getEmail());
-            System.out.println(accessToken);
-            return ResponseEntity.ok(new AuthResponse(accessToken));
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(401).body("Invalid email or password");
-        }
-    }
     @PostMapping("/createRoutine/{id}")
     public ResponseEntity<User> createRoutine(@PathVariable Long id,@RequestBody Routine routine) {
         User user = userService.createRoutine(id,routine);
         return ResponseEntity.ok(user);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String,String> userAuth) {
+        try {
+            return userService.authenticate(userAuth);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+    @PostMapping("/userLogin")
+    public ResponseEntity<?> userLogin(@RequestBody Map<String,String> userAuth) {
+        try {
+            return userService.authenticateUser(userAuth);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     @PostMapping("/createUser")
     public ResponseEntity<User> createUsuario(@RequestBody User user) {

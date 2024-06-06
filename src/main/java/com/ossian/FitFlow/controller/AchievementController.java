@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/achievement")
+@RequestMapping("api/achievement")
 @CrossOrigin(origins = "http://localhost:8080")
 public class AchievementController {
     @Autowired

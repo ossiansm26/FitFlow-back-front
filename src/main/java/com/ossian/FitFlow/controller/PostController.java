@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("api/post")
 @CrossOrigin(origins = "http://localhost:8080")
 public class PostController {
     @Autowired
