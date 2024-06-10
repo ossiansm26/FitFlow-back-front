@@ -59,7 +59,7 @@ public Community createCommunity(Long idUser,Community community) {
         user.getCommunityAssociated().add(community);
         community.getUserCreated().add(user);
         community.getUserAdded().add(user);
-        userRepository.save(user);
+        
         return communityRepository.save(community);
     }
     public List<Community> getAllCommunity(){

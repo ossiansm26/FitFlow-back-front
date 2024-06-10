@@ -1,6 +1,7 @@
 package com.ossian.FitFlow.controller;
 
 import com.ossian.FitFlow.model.*;
+import com.ossian.FitFlow.security.jwt.JwtUtil;
 import com.ossian.FitFlow.serviceImpl.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +22,8 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
-
+    @Autowired
+    private JwtUtil jwtUtil;
 
 
     @GetMapping("/getById/{id}")
@@ -28,6 +31,7 @@ public class UserController {
         User user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
+
 
     @GetMapping("/getAllUser")
     public ResponseEntity<List<User>> getAllUser() {
@@ -91,7 +95,7 @@ public class UserController {
         User user = userService.removeAchievementToUser(id, idAchievement);
         return ResponseEntity.ok(user);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User userUpdated = userService.updateUser(user);
         return ResponseEntity.ok(userUpdated);

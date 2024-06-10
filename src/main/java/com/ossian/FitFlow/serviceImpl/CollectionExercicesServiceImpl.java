@@ -33,7 +33,14 @@ public class CollectionExercicesServiceImpl implements CollectionExercicesServic
     }
 
     public CollectionExercices updateCollectionExercices(CollectionExercices collectionExercices) {
-        return collectionCollectionExercicesRepository.save(collectionExercices);
+        CollectionExercices collectionExercices1 = collectionCollectionExercicesRepository.findById(collectionExercices.getId())
+                .orElseThrow(() -> new RuntimeException("Collection Exercices not found"));
+        collectionExercices1.setCollectionName(collectionExercices.getCollectionName());
+        collectionExercices1.setDifficultyLevel(collectionExercices.getDifficultyLevel());
+        collectionExercices1.setTotalExercices(collectionExercices.getTotalExercices());
+        collectionExercices1.setUrlExplanatoryVideo(collectionExercices.getUrlExplanatoryVideo());
+        return collectionCollectionExercicesRepository.save(collectionExercices1);
+
     }
     public CollectionExercices findByName(String name) {
         return collectionCollectionExercicesRepository.findByCollectionName(name).get(0);

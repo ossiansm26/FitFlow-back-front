@@ -18,23 +18,26 @@ import java.util.Objects;
 @Service
 public class CustomerDetailsService implements UserDetailsService {
     private User user;
+
     @Autowired
-    private  UserRepository userRepository;
-
-
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("Username: " + username);
+        log.info("Iniciando la carga del usuario por nombre de usuario: {}", username);
+
         user = userRepository.findByEmail(username);
         if (user != null) {
+            log.info("Usuario encontrado: {}", username);
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
         } else {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            log.warn("Usuario no encontrado con nombre de usuario: {}", username);
+            throw new UsernameNotFoundException("Usuario no encontrado con nombre de usuario: " + username);
         }
     }
 
     public User getUser() {
+        log.info("Obteniendo el usuario actual: {}", user != null ? user.getEmail() : "No user found");
         return user;
     }
 }

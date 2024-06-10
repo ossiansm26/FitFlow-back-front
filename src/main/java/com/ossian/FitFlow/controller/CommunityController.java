@@ -20,7 +20,7 @@ public class CommunityController {
     private CommunityServiceImpl communityService;
     @Autowired
     private UserServiceImpl userService;
-    @GetMapping
+    @GetMapping("/getAllCommunity")
     public ResponseEntity<List<Community>> getAllCommunity() {
         return ResponseEntity.ok(communityService.getAllCommunity());
     }

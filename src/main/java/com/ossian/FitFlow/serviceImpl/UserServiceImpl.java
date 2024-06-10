@@ -6,6 +6,8 @@ import com.ossian.FitFlow.security.CustomerDetailsService;
 import com.ossian.FitFlow.security.jwt.JwtUtil;
 import com.ossian.FitFlow.service.UserService;
 import com.ossian.FitFlow.repository.ExerciceLogRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
@@ -45,7 +47,8 @@ public class UserServiceImpl implements UserService {
     private CustomerDetailsService customerDetailsService;
     @Autowired
     private JwtUtil jwtUtil;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -85,7 +88,19 @@ public class UserServiceImpl implements UserService {
     }
 
     public User updateUser(User user) {
-        return userRepository.save(user);
+        User existingUser = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        existingUser.setName(user.getName());
+        existingUser.setLastNames(user.getLastNames());
+        existingUser.setAge(user.getAge());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setEnrollamentDate(user.getEnrollamentDate());
+        existingUser.setPhoneNumber(user.getPhoneNumber());
+        existingUser.setAddress(user.getAddress());
+        existingUser.setRol(user.getRol());
+        existingUser.setSpeciality(user.getSpeciality());
+        existingUser.setImage(user.getImage());
+        return userRepository.save(existingUser);
     }
 
     public User addRoutineToUser(Long id, Long idRoutine) {

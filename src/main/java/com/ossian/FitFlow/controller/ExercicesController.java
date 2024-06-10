@@ -5,7 +5,9 @@ import com.ossian.FitFlow.model.Exercices;
 import com.ossian.FitFlow.model.Material;
 import com.ossian.FitFlow.model.MuscleGroup;
 import com.ossian.FitFlow.serviceImpl.ExercicesServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/exercices")
 @CrossOrigin(origins = "http://localhost:8080")
+@Slf4j
 public class ExercicesController {
     @Autowired
     private ExercicesServiceImpl exercicesService;
@@ -39,11 +42,15 @@ public class ExercicesController {
         Exercices exercicesUpdated = exercicesService.updateExercices(exercices);
         return ResponseEntity.ok(exercicesUpdated);
     }
-    @PostMapping("/{id}/addMaterial/{idMaterial}")
+    @PutMapping("/{id}/addMaterial/{idMaterial}")
     public ResponseEntity<Exercices> addMaterialToExercices(@PathVariable Long id,
-                                                           @PathVariable Long idMaterial) {
-        Exercices exercices = exercicesService.addMaterialToExercices(id, idMaterial);
-        return ResponseEntity.ok(exercices);
+                                                            @PathVariable Long idMaterial) {
+
+
+            Exercices exercices = exercicesService.addMaterialToExercices(id, idMaterial);
+
+            return ResponseEntity.ok(exercices);
+
     }
     @GetMapping("/{id}/materials")
     public ResponseEntity<List<Material>> getMaterialsFromExercices(@PathVariable Long id) {

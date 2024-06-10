@@ -24,11 +24,9 @@ public class WebConfig implements WebMvcConfigurer{
                 .allowedOrigins("")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
-                .exposedHeaders("Access-Control-Allow-Private-Network","Access-Control-Allow-Origin","Access-Control-Allow-Headers","Access-websocket-allow-origin","Access-Control-Allow-Methods");
+                .exposedHeaders("Access-Control-Allow-Private-Network","Access-Control-Allow-Origin","Access-Control-Allow-Headers","Access-websocket-allow-origin","Access-Control-Allow-Methods")
+                .allowCredentials(true);
 
     }
-
-
-
 
 }
