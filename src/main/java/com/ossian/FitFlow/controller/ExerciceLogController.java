@@ -20,11 +20,17 @@ public class ExerciceLogController {
         List<ExerciceLog> exerciceLog = exerciceLogService.getAllExerciceLog();
         return ResponseEntity.ok(exerciceLog);
     }
-    @PostMapping("/create")
-    public ResponseEntity<ExerciceLog> createExerciceLog(@RequestBody ExerciceLog exerciceLog) {
-        ExerciceLog newExerciceLog = exerciceLogService.saveExerciceLog(exerciceLog);
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<List<ExerciceLog>> getExerciceLogById(@PathVariable Long id) {
+        List<ExerciceLog> exerciceLog = exerciceLogService.findById(id);
+        return ResponseEntity.ok(exerciceLog);
+    }
+    @PostMapping("/create/{userID}")
+    public ResponseEntity<ExerciceLog> createExerciceLog(@RequestBody ExerciceLog exerciceLog, @PathVariable Long userID) {
+        ExerciceLog newExerciceLog = exerciceLogService.saveExerciceLog(exerciceLog, userID);
         return ResponseEntity.ok(newExerciceLog);
     }
+
 
 
 }
